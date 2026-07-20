@@ -1,8 +1,8 @@
 /**
  * useQRUsage — tracks free-tier usage and paid status in localStorage.
  *
- * Free tier: 5 QR code generations.
- * After that the user must pay ₦1,000 via Paystack to unlock unlimited access.
+ * Free tier: 3 QR code generations.
+ * After that the user must pay ₦1,000 via manual OPay transfer to unlock unlimited access.
  * The paid token is stored in localStorage so it persists across sessions.
  */
 
@@ -48,7 +48,7 @@ export function useQRUsage() {
     setUsageCount(next);
   }, [isPaid]);
 
-  /** Call this after successful Paystack payment verification. */
+  /** Call this after successful OPay manual transfer verification (passcode unlock). */
   const markAsPaid = useCallback((reference: string) => {
     try {
       localStorage.setItem(STORAGE_KEY_PAID, reference);

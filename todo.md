@@ -63,8 +63,8 @@
 - [ ] Implement border, margin, padding controls
 - [x] Add size/scale slider
 - [x] Implement error correction level selector
-- [ ] Build logo upload functionality
-- [ ] Add logo positioning and scaling controls
+- [x] Build logo upload functionality
+- [x] Add logo positioning and scaling controls
 - [ ] Implement frame styles with custom text
 - [ ] Add transparent background toggle
 - [x] Ensure dark/light mode compatibility
@@ -73,7 +73,7 @@
 
 ## Phase 4: Download & Export
 - [x] Implement PNG export (standard resolution)
-- [ ] Implement SVG export
+- [x] Implement SVG export
 - [x] Implement JPEG export
 - [ ] Implement PDF export
 - [ ] Implement high-resolution PNG export
@@ -87,8 +87,8 @@
 - [ ] Build QR Scanner component with camera access
 - [ ] Implement camera permission handling
 - [ ] Add QR decoder for camera stream
-- [ ] Build QR Decoder page for uploaded images
-- [ ] Implement image upload handling
+- [x] Build QR Decoder page for uploaded images
+- [x] Implement image upload handling
 - [x] Add barcode generator page
 - [x] Implement barcode format selector
 - [x] Add barcode customization options
@@ -97,7 +97,7 @@
 ## Phase 5.5: Extra Tools (Partial)
 - [x] Build QR Scanner page (interface ready, camera support coming)
 - [x] Build Barcode Generator page (fully functional)
-- [ ] Implement QR Decoder for uploaded images
+- [x] Implement QR Decoder for uploaded images
 - [ ] Implement camera-based QR scanning
 
 ## Phase 6: Marketing Pages
@@ -124,13 +124,13 @@
 - [ ] Add breadcrumb navigation
 
 ## Phase 7: SEO & Error Pages
-- [ ] Implement metadata for all pages
-- [ ] Add Open Graph tags
-- [ ] Add Twitter Card tags
-- [ ] Implement structured data (Schema.org)
-- [ ] Create robots.txt
-- [ ] Generate sitemap.xml
-- [ ] Add canonical URLs
+- [x] Implement metadata for all pages
+- [x] Add Open Graph tags
+- [x] Add Twitter Card tags
+- [x] Implement structured data (Schema.org)
+- [x] Create robots.txt
+- [x] Generate sitemap.xml
+- [x] Add canonical URLs
 - [x] Use semantic HTML throughout
 - [ ] Implement image optimization and lazy loading
 - [x] Design 404 error page
@@ -139,13 +139,13 @@
 
 ## Phase 8: Security & Accessibility
 - [x] Implement input validation with Zod
-- [ ] Add output sanitization
-- [ ] Prevent XSS attacks
-- [ ] Prevent CSRF attacks
-- [ ] Implement safe file upload handling
+- [x] Add output sanitization
+- [x] Prevent XSS attacks
+- [x] Prevent CSRF attacks
+- [x] Implement safe file upload handling
 - [ ] Add rate limiting
-- [ ] Configure Content Security Policy headers
-- [ ] Add secure headers (HSTS, X-Frame-Options, etc.)
+- [x] Configure Content Security Policy headers
+- [x] Add secure headers (HSTS, X-Frame-Options, etc.)
 - [x] Implement keyboard navigation
 - [ ] Add screen reader support
 - [ ] Add ARIA labels throughout
@@ -156,10 +156,10 @@
 - [ ] Run accessibility audit (WCAG 2.1 AA)
 
 ## Phase 9: Performance & Testing
-- [ ] Optimize bundle size
-- [ ] Implement code splitting
-- [ ] Add lazy loading for images
-- [ ] Configure caching strategies
+- [x] Optimize bundle size
+- [x] Implement code splitting
+- [x] Add lazy loading for images
+- [x] Configure caching strategies
 - [ ] Run Lighthouse audit
 - [ ] Target Lighthouse 100 score
 - [ ] Write unit tests for QR generation

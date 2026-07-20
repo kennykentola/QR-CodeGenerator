@@ -641,3 +641,64 @@ export async function generateQRCodeWithLogo(
   ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
 }
 
+/**
+ * Generate QR code as an SVG string, complete with embedded base64 logo overlay.
+ * Uses error correction level 'H' (30%) if a logo is present.
+ *
+ * @param data     - The QR code data string
+ * @param options  - QR styling options
+ * @param logoSrc  - Data URL of the logo image (optional)
+ * @param logoRatio - Logo size as a fraction of QR size (0.1 – 0.35)
+ */
+export async function generateQRCodeSVG(
+  data: string,
+  options: Partial<QRGeneratorOptions> = {},
+  logoSrc?: string,
+  logoRatio: number = 0.25
+): Promise<string> {
+  try {
+    const qrOptions = {
+      errorCorrectionLevel: (logoSrc ? 'H' : options.errorCorrectionLevel || 'H') as 'L'|'M'|'Q'|'H',
+      type: 'svg' as const,
+      margin: options.margin || 1,
+      width: options.size || 300,
+      color: {
+        dark: options.foreground || '#000000',
+        light: options.background || '#FFFFFF'
+      }
+    };
+
+    let svgString = await QRCode.toString(data, qrOptions);
+
+    if (logoSrc) {
+      // Parse the viewBox to determine the internal coordinate system for placing the logo
+      const match = svgString.match(/viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/);
+      if (match) {
+        const vbWidth = parseFloat(match[1]);
+        const vbHeight = parseFloat(match[2]);
+
+        const logoSize = vbWidth * Math.min(Math.max(logoRatio, 0.1), 0.35);
+        const padding = logoSize * 0.15;
+        const bgSize = logoSize + padding * 2;
+        const x = (vbWidth - bgSize) / 2;
+        const y = (vbHeight - bgSize) / 2;
+        const radius = bgSize * 0.15;
+
+        const logoX = x + padding;
+        const logoY = y + padding;
+
+        const logoInsert = `
+<rect x="${x}" y="${y}" width="${bgSize}" height="${bgSize}" rx="${radius}" fill="${options.background || '#FFFFFF'}" />
+<image href="${logoSrc}" x="${logoX}" y="${logoY}" width="${logoSize}" height="${logoSize}" />
+`;
+        svgString = svgString.replace('</svg>', `${logoInsert}</svg>`);
+      }
+    }
+
+    return svgString;
+  } catch (error) {
+    console.error('Error generating SVG QR code:', error);
+    throw error;
+  }
+}
+

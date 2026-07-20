@@ -4,6 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { useLocation } from 'wouter';
 import { QrCode, Zap, Shield, BarChart3, Download, Share2, Smartphone, Lock, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import SEO from '@/components/SEO';
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
@@ -86,6 +87,22 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+      <SEO 
+        title="Create Professional Custom QR Codes" 
+        description="Generate beautiful, customizable QR codes with logo support for free. 35+ QR types including WiFi, VCard, and Social Media links. No signup required."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "QR Code Generator",
+          "applicationCategory": "Utility",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "1000",
+            "priceCurrency": "NGN"
+          }
+        }}
+      />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">

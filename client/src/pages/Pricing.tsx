@@ -1,10 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Check } from 'lucide-react';
+import SEO from '@/components/SEO';
 
 export default function Pricing() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+      <SEO 
+        title="Pricing - One Time Payment" 
+        description="Unlock lifetime unlimited access to all premium QR generator features for a single ₦1,000 payment. No monthly subscriptions."
+      />
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">

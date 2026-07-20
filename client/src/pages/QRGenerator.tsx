@@ -20,6 +20,7 @@ import {
   generateQRCode,
   generateQRCodeWithLogo,
   generateQRCodeCanvas,
+  generateQRCodeSVG,
   getQRTypes,
   getQRTypeConfig,
   QRType,
@@ -40,6 +41,7 @@ import {
 import { toast } from 'sonner';
 import { useQRUsage } from '@/hooks/useQRUsage';
 import PaywallModal from '@/components/PaywallModal';
+import SEO from '@/components/SEO';
 
 // ─── Form schema ─────────────────────────────────────────────────────────────
 
@@ -166,25 +168,63 @@ export default function QRGenerator() {
 
   // ── Download ───────────────────────────────────────────────────────────────
 
-  const handleDownload = (format: 'png' | 'jpeg') => {
+  const handleDownload = async (format: 'png' | 'jpeg' | 'svg') => {
+    if (isLimitReached) {
+      setShowPaywall(true);
+      return;
+    }
     if (!hasQR || !canvasRef.current) {
       toast.error('Please generate a QR code first');
       return;
     }
-    const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
-    const url = canvasRef.current.toDataURL(mimeType, 0.95);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `qr-code.${format}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    toast.success(`Downloaded as ${format.toUpperCase()}`);
+    
+    try {
+      let url = '';
+      if (format === 'svg') {
+        const data = currentConfig.generateData(typeFields);
+        const opts: Partial<QRGeneratorOptions> = {
+          foreground: form.getValues('foreground'),
+          background: form.getValues('background'),
+          size: form.getValues('size'),
+          errorCorrectionLevel: form.getValues('errorCorrection'),
+          margin: form.getValues('margin'),
+        };
+        const activeLogo = logoSrc || logoUrl;
+        
+        const svgString = await generateQRCodeSVG(data, opts, activeLogo, logoRatio);
+        const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        url = URL.createObjectURL(blob);
+      } else {
+        const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
+        url = canvasRef.current.toDataURL(mimeType, 0.95);
+      }
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `qr-code.${format}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      if (format === 'svg') {
+        URL.revokeObjectURL(url);
+      }
+
+      recordUsage();
+      toast.success(`Downloaded as ${format.toUpperCase()}`);
+    } catch (error) {
+      console.error('Error generating download:', error);
+      toast.error('Failed to download file');
+    }
   };
 
   // ── Copy ───────────────────────────────────────────────────────────────────
 
   const handleCopy = async () => {
+    if (isLimitReached) {
+      setShowPaywall(true);
+      return;
+    }
     if (!hasQR || !canvasRef.current) {
       toast.error('Please generate a QR code first');
       return;
@@ -193,6 +233,7 @@ export default function QRGenerator() {
       if (!blob) return;
       try {
         await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+        recordUsage();
         toast.success('QR code copied to clipboard');
       } catch {
         toast.error('Failed to copy — try downloading instead');
@@ -203,6 +244,10 @@ export default function QRGenerator() {
   // ── Share ──────────────────────────────────────────────────────────────────
 
   const handleShare = async () => {
+    if (isLimitReached) {
+      setShowPaywall(true);
+      return;
+    }
     if (!hasQR || !canvasRef.current) {
       toast.error('Please generate a QR code first');
       return;
@@ -212,21 +257,11 @@ export default function QRGenerator() {
       const file = new File([blob], 'qr-code.png', { type: 'image/png' });
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({ files: [file], title: 'QR Code' });
+        recordUsage();
       } else {
         toast.error('Share not supported on this device');
       }
     });
-  };
-
-  // ── Generate (with paywall gate) ───────────────────────────────────────────
-
-  const handleGenerateClick = async () => {
-    if (isLimitReached) {
-      setShowPaywall(true);
-      return;
-    }
-    await generateQR();
-    recordUsage();
   };
 
   // ── Reset ──────────────────────────────────────────────────────────────────
@@ -250,6 +285,10 @@ export default function QRGenerator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-8 px-4">
+      <SEO 
+        title="Custom QR Code Maker" 
+        description="Design and download high-resolution QR codes with custom colors, shapes, and logo overlays."
+      />
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -533,16 +572,28 @@ export default function QRGenerator() {
           {/* ── Right Column ────────────────────────────────────────────── */}
           <div className="lg:col-span-2 space-y-6">
             {/* Preview */}
-            <Card className="p-8 flex flex-col items-center justify-center min-h-96 bg-white dark:bg-slate-900 relative">
+            <Card className="p-8 flex flex-col items-center justify-center min-h-96 bg-white dark:bg-slate-900 relative overflow-hidden">
               {isGenerating && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 dark:bg-slate-900/80 rounded-xl z-10">
                   <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-2" />
                   <p className="text-muted-foreground text-sm">Generating...</p>
                 </div>
               )}
+              {isLimitReached && !isPaid && hasQR && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/40 backdrop-blur-md rounded-xl z-10 p-6 text-center text-white">
+                  <div className="bg-slate-900/80 p-4 rounded-full mb-4">
+                    <Lock className="w-8 h-8 text-amber-400" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Limit Reached</h3>
+                  <p className="text-sm text-slate-200 mb-4">Pay ₦1,000 to unlock this QR code and unlimited generations.</p>
+                  <Button onClick={() => setShowPaywall(true)} className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold">
+                    Unlock Now
+                  </Button>
+                </div>
+              )}
               <canvas
                 ref={canvasRef}
-                className={`max-w-full h-auto rounded-lg ${!hasQR ? 'hidden' : ''}`}
+                className={`max-w-full h-auto rounded-lg ${!hasQR ? 'hidden' : ''} ${isLimitReached && !isPaid ? 'blur-md grayscale opacity-50' : ''}`}
                 style={{ imageRendering: 'pixelated' }}
               />
               {!hasQR && !isGenerating && (
@@ -599,11 +650,21 @@ export default function QRGenerator() {
                   PNG
                 </Button>
                 <Button
+                  id="download-svg-btn"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleDownload('svg')}
+                  className="flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  SVG
+                </Button>
+                <Button
                   id="download-jpeg-btn"
                   variant="outline"
                   size="sm"
                   onClick={() => handleDownload('jpeg')}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 hidden md:flex"
                 >
                   <Download className="w-4 h-4" />
                   JPEG
