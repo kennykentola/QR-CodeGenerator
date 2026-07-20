@@ -113,6 +113,7 @@ export default function LandingPage() {
             <span className="font-bold text-lg">QR Generator</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
+            <a href="/scanner" className="text-sm text-muted-foreground hover:text-foreground transition font-medium">Scanner</a>
             <a href="/templates" className="text-sm text-muted-foreground hover:text-foreground transition">Templates</a>
             <a href="/documentation" className="text-sm text-muted-foreground hover:text-foreground transition">Docs</a>
             <a href="/about" className="text-sm text-muted-foreground hover:text-foreground transition">About</a>
