@@ -572,9 +572,14 @@ export default function QRGenerator() {
           {/* ── Right Column ────────────────────────────────────────────── */}
           <div className="lg:col-span-2 space-y-6">
             {/* Preview */}
-            <Card className="p-8 flex flex-col items-center justify-center min-h-96 bg-white dark:bg-slate-900 relative overflow-hidden">
+            <Card className="p-8 flex flex-col items-center justify-center min-h-96 bg-white dark:bg-slate-900 relative overflow-hidden" aria-live="polite">
+              {/* Screen reader announcement for generation status */}
+              <span className="sr-only">
+                {isGenerating ? 'Generating QR code...' : hasQR ? 'QR code generated and ready to download' : 'Waiting for input to generate QR code'}
+              </span>
+              
               {isGenerating && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 dark:bg-slate-900/80 rounded-xl z-10">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 dark:bg-slate-900/80 rounded-xl z-10" aria-hidden="true">
                   <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-2" />
                   <p className="text-muted-foreground text-sm">Generating...</p>
                 </div>
@@ -586,7 +591,7 @@ export default function QRGenerator() {
                   </div>
                   <h3 className="text-xl font-bold mb-2">Limit Reached</h3>
                   <p className="text-sm text-slate-200 mb-4">Pay ₦1,000 to unlock this QR code and unlimited generations.</p>
-                  <Button onClick={() => setShowPaywall(true)} className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold">
+                  <Button onClick={() => setShowPaywall(true)} className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold" aria-label="Unlock unlimited access for 1000 Naira">
                     Unlock Now
                   </Button>
                 </div>
@@ -595,9 +600,11 @@ export default function QRGenerator() {
                 ref={canvasRef}
                 className={`max-w-full h-auto rounded-lg ${!hasQR ? 'hidden' : ''} ${isLimitReached && !isPaid ? 'blur-md grayscale opacity-50' : ''}`}
                 style={{ imageRendering: 'pixelated' }}
+                aria-label="Generated QR Code"
+                role="img"
               />
               {!hasQR && !isGenerating && (
-                <div className="flex flex-col items-center gap-3 text-muted-foreground">
+                <div className="flex flex-col items-center gap-3 text-muted-foreground" aria-hidden="true">
                   <ImageIcon className="w-16 h-16 opacity-20" />
                   <p className="text-sm">Fill in the content to generate your QR code</p>
                 </div>
