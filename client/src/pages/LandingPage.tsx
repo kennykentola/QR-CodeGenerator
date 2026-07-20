@@ -1,13 +1,15 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLocation } from 'wouter';
-import { QrCode, Zap, Shield, BarChart3, Download, Share2, Smartphone, Lock, Sparkles } from 'lucide-react';
+import { QrCode, Zap, Shield, BarChart3, Download, Share2, Smartphone, Lock, Sparkles, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -119,10 +121,35 @@ export default function LandingPage() {
             <a href="/about" className="text-sm text-muted-foreground hover:text-foreground transition">About</a>
             <a href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition">Contact</a>
           </div>
-          <Button onClick={() => setLocation('/generator')} className="bg-blue-600 hover:bg-blue-700">
-            Get Started
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button onClick={() => setLocation('/generator')} className="hidden md:flex bg-blue-600 hover:bg-blue-700">
+              Get Started
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden" 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </Button>
+          </div>
         </div>
+        
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 py-4 space-y-4">
+            <a href="/scanner" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">Scanner</a>
+            <a href="/templates" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">Templates</a>
+            <a href="/documentation" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">Docs</a>
+            <a href="/about" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">About</a>
+            <a href="/contact" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">Contact</a>
+            <Button onClick={() => setLocation('/generator')} className="w-full bg-blue-600 hover:bg-blue-700">
+              Get Started
+            </Button>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
