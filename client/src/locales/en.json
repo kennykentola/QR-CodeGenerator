@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "scanner": "Scanner",
+    "templates": "Templates",
+    "blog": "Blog",
+    "docs": "Docs",
+    "about": "About",
+    "contact": "Contact",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "title": "Professional QR Codes in Seconds",
+    "subtitle": "Create beautiful, customizable QR codes with logo support. Your first 3 codes are 100% free — no registration required.",
+    "createBtn": "Create QR Code",
+    "scanBtn": "Scan QR Code"
+  }
+}

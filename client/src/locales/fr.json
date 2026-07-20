@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "scanner": "Scanner",
+    "templates": "Modèles",
+    "blog": "Blog",
+    "docs": "Documentation",
+    "about": "À propos",
+    "contact": "Contact",
+    "getStarted": "Commencer"
+  },
+  "hero": {
+    "title": "Codes QR professionnels en quelques secondes",
+    "subtitle": "Créez de superbes codes QR personnalisables avec prise en charge des logos. Vos 3 premiers codes sont 100 % gratuits — aucune inscription requise.",
+    "createBtn": "Créer un Code QR",
+    "scanBtn": "Scanner un Code QR"
+  }
+}

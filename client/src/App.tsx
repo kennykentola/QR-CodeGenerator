@@ -8,6 +8,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { HelmetProvider } from 'react-helmet-async';
 import { lazy, Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
+import './i18n';
 
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const QRGenerator = lazy(() => import('./pages/QRGenerator'));
@@ -22,6 +23,8 @@ const Terms = lazy(() => import('./pages/Terms'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Pricing = lazy(() => import('./pages/Pricing'));
 const API = lazy(() => import('./pages/API'));
+const BlogList = lazy(() => import('./pages/BlogList'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 function PageLoader() {
   return (
@@ -49,6 +52,8 @@ function Router() {
         <Route path={"/contact"} component={Contact} />
         <Route path={"/privacy"} component={Privacy} />
         <Route path={"/terms"} component={Terms} />
+        <Route path={"/blog"} component={BlogList} />
+        <Route path={"/blog/:slug"} component={BlogPost} />
         <Route path={"/404"} component={NotFound} />
         <Route path={"/500"} component={Error500} />
         {/* Final fallback route */}

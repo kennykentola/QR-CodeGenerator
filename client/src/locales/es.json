@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "scanner": "Escáner",
+    "templates": "Plantillas",
+    "blog": "Blog",
+    "docs": "Documentación",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "getStarted": "Empezar"
+  },
+  "hero": {
+    "title": "Códigos QR profesionales en segundos",
+    "subtitle": "Cree códigos QR hermosos y personalizables con soporte para logotipos. Sus primeros 3 códigos son 100% gratuitos — sin necesidad de registro.",
+    "createBtn": "Crear Código QR",
+    "scanBtn": "Escanear Código QR"
+  }
+}
