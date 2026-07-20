@@ -8,7 +8,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { HelmetProvider } from 'react-helmet-async';
 import { lazy, Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
-import './i18n';
+import { I18nProvider } from './i18nContext';
 
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const QRGenerator = lazy(() => import('./pages/QRGenerator'));
@@ -76,10 +76,12 @@ function App() {
         // switchable
       >
         <HelmetProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
+          <I18nProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Router />
+            </TooltipProvider>
+          </I18nProvider>
         </HelmetProvider>
       </ThemeProvider>
     </ErrorBoundary>

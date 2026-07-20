@@ -6,15 +6,15 @@ import { useLocation } from 'wouter';
 import { QrCode, Zap, Shield, BarChart3, Download, Share2, Smartphone, Lock, Sparkles, Menu, X, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
-import { useTranslation } from 'react-i18next';
+import { useI18n, supportedLanguages } from '@/i18nContext';
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t, lang, setLang } = useI18n();
 
   const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+    setLang(lng);
   };
 
   const fadeInUp = {
@@ -121,28 +121,28 @@ export default function LandingPage() {
             <span className="font-bold text-lg">QR Generator</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="/scanner" className="text-sm text-muted-foreground hover:text-foreground transition font-medium">{t('nav.scanner')}</a>
-            <a href="/templates" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav.templates')}</a>
-            <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav.blog')}</a>
-            <a href="/documentation" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav.docs')}</a>
-            <a href="/about" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav.about')}</a>
-            <a href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav.contact')}</a>
+            <a href="/scanner" className="text-sm text-muted-foreground hover:text-foreground transition font-medium">{t('nav', 'scanner')}</a>
+            <a href="/templates" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'templates')}</a>
+            <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'blog')}</a>
+            <a href="/documentation" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'docs')}</a>
+            <a href="/about" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'about')}</a>
+            <a href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'contact')}</a>
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-2 mr-2">
               <Globe className="w-4 h-4 text-muted-foreground" />
               <select 
                 className="bg-transparent text-sm text-muted-foreground border-none outline-none cursor-pointer"
-                value={i18n.language}
+                value={lang}
                 onChange={(e) => changeLanguage(e.target.value)}
               >
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-                <option value="fr">FR</option>
+                {supportedLanguages.map((l) => (
+                  <option key={l.code} value={l.code}>{l.code.toUpperCase()}</option>
+                ))}
               </select>
             </div>
             <Button onClick={() => setLocation('/generator')} className="hidden md:flex bg-blue-600 hover:bg-blue-700">
-              {t('nav.getStarted')}
+              {t('nav', 'getStarted')}
             </Button>
             <Button 
               variant="ghost" 
@@ -159,28 +159,28 @@ export default function LandingPage() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 py-4 space-y-4">
-            <a href="/scanner" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav.scanner')}</a>
-            <a href="/templates" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav.templates')}</a>
-            <a href="/blog" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav.blog')}</a>
-            <a href="/documentation" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav.docs')}</a>
-            <a href="/about" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav.about')}</a>
-            <a href="/contact" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav.contact')}</a>
+            <a href="/scanner" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'scanner')}</a>
+            <a href="/templates" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'templates')}</a>
+            <a href="/blog" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'blog')}</a>
+            <a href="/documentation" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'docs')}</a>
+            <a href="/about" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'about')}</a>
+            <a href="/contact" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'contact')}</a>
             
             <div className="flex items-center gap-2 py-2">
               <Globe className="w-4 h-4 text-muted-foreground" />
               <select 
                 className="bg-transparent text-sm text-foreground border border-slate-200 dark:border-slate-800 rounded px-2 py-1"
-                value={i18n.language}
+                value={lang}
                 onChange={(e) => changeLanguage(e.target.value)}
               >
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
+                {supportedLanguages.map((l) => (
+                  <option key={l.code} value={l.code}>{l.label}</option>
+                ))}
               </select>
             </div>
 
             <Button onClick={() => setLocation('/generator')} className="w-full bg-blue-600 hover:bg-blue-700">
-              {t('nav.getStarted')}
+              {t('nav', 'getStarted')}
             </Button>
           </div>
         )}
@@ -191,10 +191,10 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeInUp} className="text-center">
             <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent mb-6">
-              {t('hero.title')}
+              {t('hero', 'title')}
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              {t('hero.subtitle')}
+              {t('hero', 'subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -202,7 +202,7 @@ export default function LandingPage() {
                 className="text-lg px-8 bg-blue-600 hover:bg-blue-700 h-14 rounded-xl"
                 onClick={() => setLocation('/generator')}
               >
-                {t('hero.createBtn')}
+                {t('hero', 'createBtn')}
               </Button>
               <Button
                 size="lg"
@@ -210,7 +210,7 @@ export default function LandingPage() {
                 className="text-lg px-8 h-14 rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-900"
                 onClick={() => setLocation('/scanner')}
               >
-                {t('hero.scanBtn')}
+                {t('hero', 'scanBtn')}
               </Button>
             </div>
           </motion.div>

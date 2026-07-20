@@ -20,7 +20,6 @@ export default function BlogPost() {
       <SEO 
         title={`${post.title} | KennyKentola Digital`}
         description={post.excerpt}
-        type="article"
       />
       
       <div className="max-w-3xl mx-auto">
