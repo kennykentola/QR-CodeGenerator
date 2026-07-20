@@ -38,6 +38,7 @@ import {
   Lock,
   Zap,
 } from 'lucide-react';
+import { jsPDF } from 'jspdf';
 import { toast } from 'sonner';
 import { useQRUsage } from '@/hooks/useQRUsage';
 import PaywallModal from '@/components/PaywallModal';
@@ -168,7 +169,7 @@ export default function QRGenerator() {
 
   // ── Download ───────────────────────────────────────────────────────────────
 
-  const handleDownload = async (format: 'png' | 'jpeg' | 'svg') => {
+  const handleDownload = async (format: 'png' | 'jpeg' | 'svg' | 'pdf') => {
     if (isLimitReached) {
       setShowPaywall(true);
       return;
@@ -180,7 +181,20 @@ export default function QRGenerator() {
     
     try {
       let url = '';
-      if (format === 'svg') {
+      if (format === 'pdf') {
+        const imgData = canvasRef.current.toDataURL('image/png', 1.0);
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'px',
+          format: [canvasRef.current.width, canvasRef.current.height]
+        });
+        pdf.addImage(imgData, 'PNG', 0, 0, canvasRef.current.width, canvasRef.current.height);
+        pdf.save('qr-code.pdf');
+        
+        recordUsage();
+        toast.success(`Downloaded as PDF`);
+        return; // Early return because jsPDF handles the actual download
+      } else if (format === 'svg') {
         const data = currentConfig.generateData(typeFields);
         const opts: Partial<QRGeneratorOptions> = {
           foreground: form.getValues('foreground'),
@@ -625,7 +639,7 @@ export default function QRGenerator() {
 
             {/* Action buttons */}
             {hasQR && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                 <Button
                   id="copy-btn"
                   variant="outline"
@@ -671,10 +685,20 @@ export default function QRGenerator() {
                   variant="outline"
                   size="sm"
                   onClick={() => handleDownload('jpeg')}
-                  className="flex items-center gap-2 hidden md:flex"
+                  className="flex items-center gap-2"
                 >
                   <Download className="w-4 h-4" />
                   JPEG
+                </Button>
+                <Button
+                  id="download-pdf-btn"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleDownload('pdf')}
+                  className="flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  PDF
                 </Button>
               </div>
             )}

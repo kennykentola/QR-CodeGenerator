@@ -406,7 +406,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-400">
-            <p>&copy; 2024 QR Code Generator. All rights reserved.</p>
+            <p>&copy; 2026 KennyKentola Digital QR Code Generator. All rights reserved.</p>
           </div>
         </div>
       </footer>
