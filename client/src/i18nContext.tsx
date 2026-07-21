@@ -31,5 +31,5 @@ export function useI18n() {
 
 export const supportedLanguages = Object.keys(translations).map((code) => ({
   code,
-  label: { en: 'English', es: 'Español', fr: 'Français' }[code] ?? code,
+  label: { en: 'English', es: 'Español', fr: 'Français', yo: 'Yorùbá', ha: 'Hausa', ig: 'Igbo' }[code] ?? code,
 }));

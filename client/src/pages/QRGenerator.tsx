@@ -43,6 +43,7 @@ import { toast } from 'sonner';
 import { useQRUsage } from '@/hooks/useQRUsage';
 import PaywallModal from '@/components/PaywallModal';
 import SEO from '@/components/SEO';
+import { useI18n } from '@/i18nContext';
 
 // ─── Form schema ─────────────────────────────────────────────────────────────
 
@@ -76,6 +77,8 @@ export default function QRGenerator() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { t } = useI18n();
 
   const { isLimitReached, isPaid, remainingFree, recordUsage, markAsPaid } = useQRUsage();
 
@@ -307,9 +310,9 @@ export default function QRGenerator() {
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-foreground mb-1">QR Code Generator</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-1">{t('generator', 'title')}</h1>
             <p className="text-muted-foreground">
-              Create professional QR codes instantly with advanced customization
+              {t('generator', 'subtitle')}
             </p>
           </div>
 
@@ -317,13 +320,12 @@ export default function QRGenerator() {
           <div className="flex-shrink-0">
             {isPaid ? (
               <span className="inline-flex items-center gap-2 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-4 py-2 rounded-full text-sm font-medium">
-                <Zap className="w-4 h-4" /> Unlimited Access
+                <Zap className="w-4 h-4" /> {t('generator', 'unlimited')}
               </span>
             ) : (
               <span className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-4 py-2 rounded-full text-sm font-medium">
                 <Lock className="w-4 h-4" />
-                {remainingFree} free{' '}
-                {remainingFree === 1 ? 'generation' : 'generations'} left
+                {remainingFree} {remainingFree === 1 ? t('generator', 'free_left_single') : t('generator', 'free_left')}
               </span>
             )}
           </div>
@@ -334,7 +336,7 @@ export default function QRGenerator() {
           <div className="lg:col-span-1 space-y-6">
             {/* QR Type */}
             <Card className="p-6">
-              <h2 className="text-lg font-semibold mb-4">QR Type</h2>
+              <h2 className="text-lg font-semibold mb-4">{t('generator', 'qr_type')}</h2>
               <Select
                 value={currentQRType}
                 onValueChange={(value) => {
@@ -358,7 +360,7 @@ export default function QRGenerator() {
 
             {/* Content Fields */}
             <Card className="p-6">
-              <h2 className="text-lg font-semibold mb-4">Content</h2>
+              <h2 className="text-lg font-semibold mb-4">{t('generator', 'content')}</h2>
               <div className="space-y-4">
                 {currentConfig.fields.map((field) => (
                   <div key={field.name}>
@@ -396,19 +398,19 @@ export default function QRGenerator() {
 
             {/* Customization */}
             <Card className="p-6">
-              <h2 className="text-lg font-semibold mb-4">Customization</h2>
+              <h2 className="text-lg font-semibold mb-4">{t('generator', 'customization')}</h2>
               <Tabs defaultValue="colors" className="w-full">
                 <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="colors">Colors</TabsTrigger>
-                  <TabsTrigger value="style">Style</TabsTrigger>
-                  <TabsTrigger value="size">Size</TabsTrigger>
-                  <TabsTrigger value="logo">Logo</TabsTrigger>
+                  <TabsTrigger value="colors">{t('generator', 'tab_colors')}</TabsTrigger>
+                  <TabsTrigger value="style">{t('generator', 'tab_style')}</TabsTrigger>
+                  <TabsTrigger value="size">{t('generator', 'tab_size')}</TabsTrigger>
+                  <TabsTrigger value="logo">{t('generator', 'tab_logo')}</TabsTrigger>
                 </TabsList>
 
                 {/* Colors */}
                 <TabsContent value="colors" className="space-y-4 mt-4">
                   <div>
-                    <Label>Foreground Color</Label>
+                    <Label>{t('generator', 'fg_color')}</Label>
                     <div className="flex gap-2 mt-2">
                       <Input
                         type="color"
@@ -427,7 +429,7 @@ export default function QRGenerator() {
                     </div>
                   </div>
                   <div>
-                    <Label>Background Color</Label>
+                    <Label>{t('generator', 'bg_color')}</Label>
                     <div className="flex gap-2 mt-2">
                       <Input
                         type="color"
@@ -450,7 +452,7 @@ export default function QRGenerator() {
                 {/* Style */}
                 <TabsContent value="style" className="space-y-4 mt-4">
                   <div>
-                    <Label>Error Correction Level</Label>
+                    <Label>{t('generator', 'err_corr')}</Label>
                     <Select
                       value={form.watch('errorCorrection')}
                       onValueChange={(value) => form.setValue('errorCorrection', value as 'L' | 'M' | 'Q' | 'H')}
@@ -459,15 +461,15 @@ export default function QRGenerator() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="L">Low (7%) — smaller QR</SelectItem>
-                        <SelectItem value="M">Medium (15%)</SelectItem>
-                        <SelectItem value="Q">Quartile (25%)</SelectItem>
-                        <SelectItem value="H">High (30%) — best with logo</SelectItem>
+                        <SelectItem value="L">{t('generator', 'err_l')}</SelectItem>
+                        <SelectItem value="M">{t('generator', 'err_m')}</SelectItem>
+                        <SelectItem value="Q">{t('generator', 'err_q')}</SelectItem>
+                        <SelectItem value="H">{t('generator', 'err_h')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <Label>Margin — {form.watch('margin') || 1} modules</Label>
+                    <Label>{t('generator', 'margin')} — {form.watch('margin') || 1} {t('generator', 'modules')}</Label>
                     <Slider
                       className="mt-2"
                       value={[form.watch('margin') || 1]}
@@ -482,7 +484,7 @@ export default function QRGenerator() {
                 {/* Size */}
                 <TabsContent value="size" className="space-y-4 mt-4">
                   <div>
-                    <Label>Size — {form.watch('size') || 300}px</Label>
+                    <Label>{t('generator', 'size')} — {form.watch('size') || 300}px</Label>
                     <Slider
                       className="mt-2"
                       value={[form.watch('size') || 300]}
@@ -496,7 +498,6 @@ export default function QRGenerator() {
 
                 {/* Logo */}
                 <TabsContent value="logo" className="space-y-4 mt-4">
-                  {/* Drop zone */}
                   <div
                     className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-5 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-colors"
                     onDragOver={(e) => e.preventDefault()}
@@ -504,22 +505,22 @@ export default function QRGenerator() {
                     onClick={() => fileInputRef.current?.click()}
                     role="button"
                     tabIndex={0}
-                    aria-label="Upload logo"
+                    aria-label={t('generator', 'upload_logo')}
                   >
                     {activeLogo ? (
                       <div className="flex flex-col items-center gap-2">
                         <img
                           src={activeLogo}
-                          alt="Logo preview"
+                          alt={t('generator', 'logo_preview')}
                           className="w-16 h-16 object-contain rounded-lg border"
                         />
-                        <p className="text-xs text-green-600 font-medium">Logo loaded ✓</p>
+                        <p className="text-xs text-green-600 font-medium">{t('generator', 'logo_loaded')}</p>
                       </div>
                     ) : (
                       <div className="flex flex-col items-center gap-2 text-muted-foreground">
                         <Upload className="w-8 h-8" />
-                        <p className="text-sm font-medium">Drop your logo here</p>
-                        <p className="text-xs">PNG, JPG, SVG supported</p>
+                        <p className="text-sm font-medium">{t('generator', 'drop_logo')}</p>
+                        <p className="text-xs">{t('generator', 'logo_formats')}</p>
                       </div>
                     )}
                   </div>
@@ -595,7 +596,7 @@ export default function QRGenerator() {
               {isGenerating && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 dark:bg-slate-900/80 rounded-xl z-10" aria-hidden="true">
                   <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-2" />
-                  <p className="text-muted-foreground text-sm">Generating...</p>
+                  <p className="text-muted-foreground text-sm">{t('generator', 'generating')}</p>
                 </div>
               )}
               {isLimitReached && !isPaid && hasQR && (
@@ -603,10 +604,10 @@ export default function QRGenerator() {
                   <div className="bg-slate-900/80 p-4 rounded-full mb-4">
                     <Lock className="w-8 h-8 text-amber-400" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Limit Reached</h3>
-                  <p className="text-sm text-slate-200 mb-4">Pay ₦1,000 to unlock this QR code and unlimited generations.</p>
+                  <h3 className="text-xl font-bold mb-2">{t('generator', 'limit_reached')}</h3>
+                  <p className="text-sm text-slate-200 mb-4">{t('generator', 'limit_desc')}</p>
                   <Button onClick={() => setShowPaywall(true)} className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold" aria-label="Unlock unlimited access for 1000 Naira">
-                    Unlock Now
+                    {t('generator', 'unlock_btn')}
                   </Button>
                 </div>
               )}
@@ -620,7 +621,7 @@ export default function QRGenerator() {
               {!hasQR && !isGenerating && (
                 <div className="flex flex-col items-center gap-3 text-muted-foreground" aria-hidden="true">
                   <ImageIcon className="w-16 h-16 opacity-20" />
-                  <p className="text-sm">Fill in the content to generate your QR code</p>
+                  <p className="text-sm">{t('generator', 'fill_in')}</p>
                 </div>
               )}
             </Card>
@@ -633,7 +634,7 @@ export default function QRGenerator() {
                 onClick={() => setShowPaywall(true)}
               >
                 <Lock className="w-4 h-4 mr-2" />
-                Unlock Unlimited — Pay ₦1,000
+                {t('generator', 'unlock_unlimited')}
               </Button>
             ) : null}
 
@@ -648,7 +649,7 @@ export default function QRGenerator() {
                   className="flex items-center gap-2"
                 >
                   <Copy className="w-4 h-4" />
-                  Copy
+                  {t('generator', 'copy')}
                 </Button>
                 <Button
                   id="share-btn"
@@ -658,7 +659,7 @@ export default function QRGenerator() {
                   className="flex items-center gap-2"
                 >
                   <Share2 className="w-4 h-4" />
-                  Share
+                  {t('generator', 'share')}
                 </Button>
                 <Button
                   id="download-png-btn"
@@ -711,15 +712,15 @@ export default function QRGenerator() {
               className="w-full flex items-center gap-2"
             >
               <RotateCcw className="w-4 h-4" />
-              Reset All
+              {t('generator', 'reset')}
             </Button>
 
             {/* Free usage indicator */}
             {!isPaid && (
               <p className="text-center text-xs text-muted-foreground">
                 {remainingFree > 0
-                  ? `${remainingFree} of 3 free generations remaining — pay ₦1,000 for unlimited access`
-                  : 'Free limit reached — pay ₦1,000 to unlock unlimited QR codes'}
+                  ? `${remainingFree} ${t('generator', 'free_remaining_1')}`
+                  : t('generator', 'free_remaining_2')}
               </p>
             )}
           </div>
