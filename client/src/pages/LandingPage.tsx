@@ -24,36 +24,12 @@ export default function LandingPage() {
   };
 
   const features = [
-    {
-      icon: QrCode,
-      title: '35+ QR Types',
-      description: 'Generate QR codes for URLs, emails, WiFi, vCard, payments, social media, and more'
-    },
-    {
-      icon: Sparkles,
-      title: 'Advanced Customization',
-      description: 'Full control over colors, styles, logo placement, and frame designs'
-    },
-    {
-      icon: Download,
-      title: 'Multiple Formats',
-      description: 'Export as PNG, SVG, JPEG, PDF, or high-resolution for print'
-    },
-    {
-      icon: Zap,
-      title: 'Real-time Preview',
-      description: 'See changes instantly as you customize your QR code'
-    },
-    {
-      icon: Smartphone,
-      title: 'Mobile Optimized',
-      description: 'Works perfectly on all devices with responsive design'
-    },
-    {
-      icon: Shield,
-      title: 'Secure & Private',
-      description: 'All processing happens in your browser - no data stored'
-    }
+    { icon: QrCode, titleKey: 'f1Title', descKey: 'f1Desc' },
+    { icon: Sparkles, titleKey: 'f2Title', descKey: 'f2Desc' },
+    { icon: Download, titleKey: 'f3Title', descKey: 'f3Desc' },
+    { icon: Zap, titleKey: 'f4Title', descKey: 'f4Desc' },
+    { icon: Smartphone, titleKey: 'f5Title', descKey: 'f5Desc' },
+    { icon: Shield, titleKey: 'f6Title', descKey: 'f6Desc' },
   ];
 
   const qrTypes = [
@@ -66,32 +42,7 @@ export default function LandingPage() {
     'Menu', 'Coupon', 'Feedback Form', 'Survey', 'Custom Data'
   ];
 
-  const faqItems = [
-    {
-      question: 'Is my data stored anywhere?',
-      answer: 'No, all QR code generation happens entirely in your browser. We don\'t store or transmit any of your data to our servers. Your payment status is stored safely in your local browser storage.'
-    },
-    {
-      question: 'Can I use these QR codes commercially?',
-      answer: 'Yes, absolutely. You can use QR codes generated here for any purpose - personal, commercial, or otherwise. They never expire.'
-    },
-    {
-      question: 'Is this completely free?',
-      answer: 'Your first 3 QR code generations are 100% free. After that, we charge a tiny one-time fee of ₦1,000 for lifetime unlimited access to all features, including logo uploads. No monthly subscriptions.'
-    },
-    {
-      question: 'Do I need to create an account?',
-      answer: 'No account needed! Even when paying the one-time ₦1,000 fee, you just enter your email for the receipt. Your access is tied to your browser instantly.'
-    },
-    {
-      question: 'Can I customize the appearance of QR codes?',
-      answer: 'Yes, you can customize colors, sizes, error correction levels, margins, and upload your own logo to be centered on the QR code.'
-    },
-    {
-      question: 'What\'s the maximum QR code size?',
-      answer: 'You can generate QR codes up to 1000x1000 pixels. For print quality, we recommend downloading as PNG at the highest size setting.'
-    }
-  ];
+  const faqKeys = ['1', '2', '3', '4', '5', '6'];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
@@ -224,7 +175,7 @@ export default function LandingPage() {
           >
             <div className="text-center">
               <QrCode className="w-24 h-24 text-blue-600 mx-auto mb-4 opacity-50" />
-              <p className="text-muted-foreground">QR Code Preview</p>
+              <p className="text-muted-foreground">{t('hero', 'preview')}</p>
             </div>
           </motion.div>
         </div>
@@ -234,9 +185,9 @@ export default function LandingPage() {
       <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('features', 'title')}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to create professional QR codes with advanced customization
+              {t('features', 'subtitle')}
             </p>
           </motion.div>
 
@@ -252,8 +203,8 @@ export default function LandingPage() {
                 >
                   <Card className="p-6 h-full hover:shadow-lg transition-shadow">
                     <Icon className="w-12 h-12 text-blue-600 mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-lg font-semibold mb-2">{t('features', feature.titleKey)}</h3>
+                    <p className="text-muted-foreground">{t('features', feature.descKey)}</p>
                   </Card>
                 </motion.div>
               );
@@ -266,9 +217,9 @@ export default function LandingPage() {
       <section id="types" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">35+ QR Code Types</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('types', 'title')}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Support for every QR code type you could need
+              {t('types', 'subtitle')}
             </p>
           </motion.div>
 
@@ -293,7 +244,7 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose Us?</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('why', 'title')}</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-12">
@@ -306,22 +257,22 @@ export default function LandingPage() {
                 <div className="flex gap-4">
                   <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold mb-2">100% Private</h3>
-                    <p className="text-muted-foreground">All processing happens in your browser. No data is sent to our servers.</p>
+                    <h3 className="font-semibold mb-2">{t('why', 'w1Title')}</h3>
+                    <p className="text-muted-foreground">{t('why', 'w1Desc')}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
                   <Zap className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold mb-2">Lightning Fast</h3>
-                    <p className="text-muted-foreground">Generate QR codes instantly with real-time preview updates.</p>
+                    <h3 className="font-semibold mb-2">{t('why', 'w2Title')}</h3>
+                    <p className="text-muted-foreground">{t('why', 'w2Desc')}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
                   <Lock className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold mb-2">No Registration</h3>
-                    <p className="text-muted-foreground">Start generating QR codes immediately without creating an account.</p>
+                    <h3 className="font-semibold mb-2">{t('why', 'w3Title')}</h3>
+                    <p className="text-muted-foreground">{t('why', 'w3Desc')}</p>
                   </div>
                 </div>
               </div>
@@ -336,22 +287,22 @@ export default function LandingPage() {
                 <div className="flex gap-4">
                   <Sparkles className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold mb-2">Fully Customizable</h3>
-                    <p className="text-muted-foreground">Control every aspect of your QR code design and appearance.</p>
+                    <h3 className="font-semibold mb-2">{t('why', 'w4Title')}</h3>
+                    <p className="text-muted-foreground">{t('why', 'w4Desc')}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
                   <Download className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold mb-2">Multiple Formats</h3>
-                    <p className="text-muted-foreground">Download in PNG, JPEG, SVG, PDF, or high-resolution formats.</p>
+                    <h3 className="font-semibold mb-2">{t('why', 'w5Title')}</h3>
+                    <p className="text-muted-foreground">{t('why', 'w5Desc')}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
                   <BarChart3 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold mb-2">Professional Grade</h3>
-                    <p className="text-muted-foreground">Create print-ready QR codes for professional use.</p>
+                    <h3 className="font-semibold mb-2">{t('why', 'w6Title')}</h3>
+                    <p className="text-muted-foreground">{t('why', 'w6Desc')}</p>
                   </div>
                 </div>
               </div>
@@ -364,8 +315,8 @@ export default function LandingPage() {
       <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground">Find answers to common questions about our QR code generator</p>
+            <h2 className="text-4xl font-bold mb-4">{t('faq', 'title')}</h2>
+            <p className="text-muted-foreground">{t('faq', 'subtitle')}</p>
           </motion.div>
 
           <motion.div
@@ -374,10 +325,10 @@ export default function LandingPage() {
             transition={{ duration: 0.6 }}
           >
             <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
+              {faqKeys.map((key, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger>{item.question}</AccordionTrigger>
-                  <AccordionContent>{item.answer}</AccordionContent>
+                  <AccordionTrigger>{t('faq', `q${key}`)}</AccordionTrigger>
+                  <AccordionContent>{t('faq', `a${key}`)}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
@@ -389,14 +340,14 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-700">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div {...fadeInUp}>
-            <h2 className="text-4xl font-bold text-white mb-4">Ready to Create Your QR Code?</h2>
-            <p className="text-blue-100 text-lg mb-8">Start generating professional QR codes in seconds</p>
+            <h2 className="text-4xl font-bold text-white mb-4">{t('cta', 'title')}</h2>
+            <p className="text-blue-100 text-lg mb-8">{t('cta', 'subtitle')}</p>
             <Button
               size="lg"
               onClick={() => setLocation('/generator')}
               className="bg-white text-blue-600 hover:bg-blue-50"
             >
-              Get Started Now
+              {t('cta', 'btn')}
             </Button>
           </motion.div>
         </div>
@@ -413,36 +364,36 @@ export default function LandingPage() {
                 </div>
                 <span className="font-bold">QR Generator</span>
               </div>
-              <p className="text-sm text-slate-400">Professional QR code generation made simple.</p>
+              <p className="text-sm text-slate-400">{t('footer', 'tagline')}</p>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Product</h3>
+              <h3 className="font-semibold mb-4">{t('footer', 'product')}</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/generator" className="hover:text-white transition">Generator</a></li>
-                <li><a href="/scanner" className="hover:text-white transition">Scanner</a></li>
-                <li><a href="/templates" className="hover:text-white transition">Templates</a></li>
+                <li><a href="/generator" className="hover:text-white transition">{t('footer', 'generator')}</a></li>
+                <li><a href="/scanner" className="hover:text-white transition">{t('nav', 'scanner')}</a></li>
+                <li><a href="/templates" className="hover:text-white transition">{t('nav', 'templates')}</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Resources</h3>
+              <h3 className="font-semibold mb-4">{t('footer', 'resources')}</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/documentation" className="hover:text-white transition">Documentation</a></li>
+                <li><a href="/documentation" className="hover:text-white transition">{t('footer', 'documentation')}</a></li>
                 <li><a href="/faq" className="hover:text-white transition">FAQ</a></li>
                 <li><a href="/api-docs" className="hover:text-white transition">API</a></li>
-                <li><a href="/about" className="hover:text-white transition">About</a></li>
+                <li><a href="/about" className="hover:text-white transition">{t('nav', 'about')}</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
+              <h3 className="font-semibold mb-4">{t('footer', 'legal')}</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/pricing" className="hover:text-white transition">Pricing</a></li>
-                <li><a href="/privacy" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-white transition">Terms of Service</a></li>
+                <li><a href="/pricing" className="hover:text-white transition">{t('footer', 'pricing')}</a></li>
+                <li><a href="/privacy" className="hover:text-white transition">{t('footer', 'privacy')}</a></li>
+                <li><a href="/terms" className="hover:text-white transition">{t('footer', 'terms')}</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-slate-800 pt-8 text-center text-sm text-slate-400">
-            <p>&copy; 2026 KennyKentola Digital QR Code Generator. All rights reserved.</p>
+            <p>{t('footer', 'copyright')}</p>
           </div>
         </div>
       </footer>
