@@ -50,7 +50,9 @@ export default function Contact() {
                 <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="font-semibold mb-1">{t('contact', 'email')}</h3>
-                  <p className="text-muted-foreground">support@qrgenerator.app</p>
+                  <a href="mailto:peterkehindeademola9@gmail.com" className="text-muted-foreground hover:text-blue-600 transition-colors">
+                    peterkehindeademola9@gmail.com
+                  </a>
                 </div>
               </div>
 
@@ -58,7 +60,10 @@ export default function Contact() {
                 <Phone className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="font-semibold mb-1">{t('contact', 'phone')}</h3>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                  <p className="text-muted-foreground">
+                    <a href="tel:+2348163571677" className="hover:text-blue-600 transition-colors block">(+234) 08163571677</a>
+                    <a href="tel:+2349048082076" className="hover:text-blue-600 transition-colors block">(+234) 09048082076</a>
+                  </p>
                 </div>
               </div>
 
@@ -66,7 +71,7 @@ export default function Contact() {
                 <MapPin className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="font-semibold mb-1">{t('contact', 'address')}</h3>
-                  <p className="text-muted-foreground">123 Tech Street, San Francisco, CA 94105</p>
+                  <p className="text-muted-foreground">House 25, Unit 1 Road Elebu,<br />Moniya, Ibadan, Nigeria</p>
                 </div>
               </div>
             </div>

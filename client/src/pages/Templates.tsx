@@ -3,45 +3,47 @@ import { Card } from '@/components/ui/card';
 import { useLocation } from 'wouter';
 import { QrCode, Smartphone, ShoppingCart, Wifi, MapPin, Music } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useI18n } from '@/i18nContext';
 
 export default function Templates() {
   const [, setLocation] = useLocation();
+  const { t } = useI18n();
 
   const templates = [
     {
       icon: Smartphone,
-      title: 'Mobile App Download',
-      description: 'Link to your app on App Store or Google Play',
+      titleKey: 'tpl_mobile_title',
+      descKey: 'tpl_mobile_desc',
       type: 'app_store'
     },
     {
       icon: Wifi,
-      title: 'WiFi Network',
-      description: 'Share WiFi credentials with guests',
+      titleKey: 'tpl_wifi_title',
+      descKey: 'tpl_wifi_desc',
       type: 'wifi'
     },
     {
       icon: ShoppingCart,
-      title: 'Product Link',
-      description: 'Direct customers to your product page',
+      titleKey: 'tpl_product_title',
+      descKey: 'tpl_product_desc',
       type: 'url'
     },
     {
       icon: MapPin,
-      title: 'Location',
-      description: 'Share your business location on Google Maps',
+      titleKey: 'tpl_location_title',
+      descKey: 'tpl_location_desc',
       type: 'google_maps'
     },
     {
       icon: Music,
-      title: 'Social Media',
-      description: 'Link to your social media profiles',
+      titleKey: 'tpl_social_title',
+      descKey: 'tpl_social_desc',
       type: 'instagram'
     },
     {
       icon: QrCode,
-      title: 'Business Card',
-      description: 'Digital business card with contact info',
+      titleKey: 'tpl_biz_title',
+      descKey: 'tpl_biz_desc',
       type: 'business_card'
     }
   ];
@@ -51,8 +53,8 @@ export default function Templates() {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-4">QR Code Templates</h1>
-          <p className="text-blue-100 text-lg">Pre-configured templates for common use cases</p>
+          <h1 className="text-4xl font-bold mb-4">{t('templates', 'title')}</h1>
+          <p className="text-blue-100 text-lg">{t('templates', 'subtitle')}</p>
         </div>
       </div>
 
@@ -70,9 +72,9 @@ export default function Templates() {
               >
                 <Card className="p-6 h-full hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setLocation('/generator')}>
                   <Icon className="w-12 h-12 text-blue-600 mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">{template.title}</h3>
-                  <p className="text-muted-foreground mb-4">{template.description}</p>
-                  <Button size="sm" variant="outline" className="w-full">Use Template</Button>
+                  <h3 className="text-lg font-semibold mb-2">{t('templates', template.titleKey)}</h3>
+                  <p className="text-muted-foreground mb-4">{t('templates', template.descKey)}</p>
+                  <Button size="sm" variant="outline" className="w-full">{t('templates', 'use_template')}</Button>
                 </Card>
               </motion.div>
             );
