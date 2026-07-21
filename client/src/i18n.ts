@@ -4,6 +4,7 @@
 export const translations: Record<string, Record<string, Record<string, string>>> = {
   en: {
     nav: { scanner: 'Scanner', templates: 'Templates', blog: 'Blog', docs: 'Docs', about: 'About', contact: 'Contact', getStarted: 'Get Started' },
+    blog: { title: 'Resources & Tutorials', subtitle: 'Master the art of QR codes for your business with our step-by-step guides.', read_article: 'Read Article', back: '← Back to Resources' },
     hero: { title: 'Professional QR Codes in Seconds', subtitle: 'Create beautiful, customizable QR codes with logo support. Your first 3 codes are 100% free — no registration required.', createBtn: 'Create QR Code', scanBtn: 'Scan QR Code', preview: 'QR Code Preview' },
     features: { title: 'Powerful Features', subtitle: 'Everything you need to create professional QR codes with advanced customization', f1Title: '35+ QR Types', f1Desc: 'Generate QR codes for URLs, emails, WiFi, vCard, payments, social media, and more', f2Title: 'Advanced Customization', f2Desc: 'Full control over colors, styles, logo placement, and frame designs', f3Title: 'Multiple Formats', f3Desc: 'Export as PNG, SVG, JPEG, PDF, or high-resolution for print', f4Title: 'Real-time Preview', f4Desc: 'See changes instantly as you customize your QR code', f5Title: 'Mobile Optimized', f5Desc: 'Works perfectly on all devices with responsive design', f6Title: 'Secure & Private', f6Desc: 'All processing happens in your browser - no data stored' },
     types: { title: '35+ QR Code Types', subtitle: 'Support for every QR code type you could need' },
@@ -18,10 +19,20 @@ export const translations: Record<string, Record<string, Record<string, string>>
       dropzone: 'Drag & drop your logo here, or click to select', dropzone_hint: 'Supports PNG, JPG, WEBP (Max 2MB)', upload_logo: 'Upload logo', logo_preview: 'Logo preview', logo_loaded: 'Logo loaded ✓', drop_logo: 'Drop your logo here', logo_formats: 'PNG, JPG, SVG supported', or_url: 'Or enter image URL', logo_size: 'Logo Size', remove_logo: 'Remove Logo', generating: 'Generating...',
       waiting: 'Waiting for input to generate QR code', fill_in: 'Fill in the content to generate your QR code', limit_reached: 'Limit Reached', limit_desc: 'Pay ₦1,000 to unlock this QR code and unlimited generations.',
       unlock_btn: 'Unlock Now', unlock_unlimited: 'Unlock Unlimited — Pay ₦1,000', copy: 'Copy', share: 'Share', reset: 'Reset All', free_remaining_1: 'of 3 free generations remaining — pay ₦1,000 for unlimited access', free_remaining_2: 'Free limit reached — pay ₦1,000 to unlock unlimited QR codes'
+    },
+    scanner: {
+      title: 'QR Code Scanner & Decoder', subtitle: 'Scan with your camera or upload an image — results appear instantly',
+      live_cam: 'Live Camera Scanner', cam_preview: 'Camera preview will appear here', scanning: 'Scanning…', stop_cam: 'Stop Camera', start_cam: 'Start Camera',
+      upload_img: 'Upload Image', click_upload: 'Click to upload an image', formats: 'PNG, JPG, WEBP supported', choose_img: 'Choose Image',
+      decoded: 'Decoded Content', open_link: 'Open link ↗', copy_res: 'Copy Result', clear: 'Clear',
+      private_title: '100% Private Scanning', private_desc: 'All scanning happens directly in your browser. Your camera feed and uploaded images are never sent to any server. For best results when uploading, ensure the QR code is clear, well-lit, and fills a good portion of the image.',
+      toast_detected: 'QR code detected!', toast_decoded: 'QR code successfully decoded!', toast_not_found: 'No QR code found. Please try a clearer image.', toast_analyze_fail: 'Failed to analyze image', toast_process_fail: 'Failed to process image', toast_copied: 'Copied to clipboard', toast_copy_fail: 'Failed to copy',
+      cam_error_perm: 'Camera permission denied. Please allow camera access in your browser settings.', cam_error_acc: 'Could not access camera. Please ensure a camera is connected.'
     }
   },
   es: {
     nav: { scanner: 'Escáner', templates: 'Plantillas', blog: 'Blog', docs: 'Documentación', about: 'Acerca de', contact: 'Contacto', getStarted: 'Empezar' },
+    blog: { title: 'Recursos y Tutoriales', subtitle: 'Domine el arte de los códigos QR para su negocio con nuestras guías.', read_article: 'Leer Artículo', back: '← Volver a Recursos' },
     hero: { title: 'Códigos QR profesionales en segundos', subtitle: 'Cree hermosos códigos QR personalizables con soporte de logotipo. Sus primeros 3 códigos son 100% gratuitos, sin registro.', createBtn: 'Crear Código QR', scanBtn: 'Escanear Código QR', preview: 'Vista previa del Código QR' },
     features: { title: 'Funciones Potentes', subtitle: 'Todo lo que necesita para crear códigos QR profesionales con personalización avanzada', f1Title: '35+ Tipos de QR', f1Desc: 'Genere códigos QR para URLs, correos, WiFi, vCard, pagos, redes sociales y más', f2Title: 'Personalización Avanzada', f2Desc: 'Control total sobre colores, estilos, colocación del logotipo y diseños de marco', f3Title: 'Múltiples Formatos', f3Desc: 'Exporte como PNG, SVG, JPEG, PDF o alta resolución para imprimir', f4Title: 'Vista Previa en Tiempo Real', f4Desc: 'Vea los cambios al instante mientras personaliza su código QR', f5Title: 'Optimizado para Móviles', f5Desc: 'Funciona perfectamente en todos los dispositivos con diseño responsivo', f6Title: 'Seguro y Privado', f6Desc: 'Todo el procesamiento ocurre en su navegador, sin datos almacenados' },
     types: { title: '35+ Tipos de Código QR', subtitle: 'Soporte para cada tipo de código QR que pueda necesitar' },
@@ -36,10 +47,20 @@ export const translations: Record<string, Record<string, Record<string, string>>
       dropzone: 'Arrastre y suelte su logotipo aquí, o haga clic para seleccionar', dropzone_hint: 'Soporta PNG, JPG, WEBP (Max 2MB)', or_url: 'O ingrese la URL de la imagen', logo_size: 'Tamaño del logotipo', remove_logo: 'Eliminar logotipo', generating: 'Generando...',
       waiting: 'Esperando entrada para generar el código QR', fill_in: 'Complete el contenido para generar su código QR', limit_reached: 'Límite Alcanzado', limit_desc: 'Pague ₦1,000 para desbloquear este código QR y generaciones ilimitadas.',
       unlock_btn: 'Desbloquear Ahora', unlock_unlimited: 'Desbloquear Ilimitado — Pagar ₦1,000', copy: 'Copiar', share: 'Compartir', reset: 'Restablecer Todo', free_remaining_1: 'de 3 generaciones gratuitas restantes — pague ₦1,000 para acceso ilimitado', free_remaining_2: 'Límite gratuito alcanzado — pague ₦1,000 para desbloquear códigos QR ilimitados'
+    },
+    scanner: {
+      title: 'Escáner y Decodificador de Códigos QR', subtitle: 'Escanee con su cámara o suba una imagen — los resultados aparecen al instante',
+      live_cam: 'Escáner de Cámara en Vivo', cam_preview: 'La vista previa de la cámara aparecerá aquí', scanning: 'Escaneando…', stop_cam: 'Detener Cámara', start_cam: 'Iniciar Cámara',
+      upload_img: 'Subir Imagen', click_upload: 'Haga clic para subir una imagen', formats: 'Soporta PNG, JPG, WEBP', choose_img: 'Elegir Imagen',
+      decoded: 'Contenido Decodificado', open_link: 'Abrir enlace ↗', copy_res: 'Copiar Resultado', clear: 'Limpiar',
+      private_title: 'Escaneo 100% Privado', private_desc: 'Todo el escaneo ocurre directamente en su navegador. Su cámara y las imágenes subidas nunca se envían a ningún servidor. Para mejores resultados al subir, asegúrese de que el código QR sea claro, esté bien iluminado y ocupe una buena parte de la imagen.',
+      toast_detected: '¡Código QR detectado!', toast_decoded: '¡Código QR decodificado exitosamente!', toast_not_found: 'No se encontró ningún código QR. Por favor intente con una imagen más clara.', toast_analyze_fail: 'Error al analizar la imagen', toast_process_fail: 'Error al procesar la imagen', toast_copied: 'Copiado al portapapeles', toast_copy_fail: 'Error al copiar',
+      cam_error_perm: 'Permiso de cámara denegado. Por favor permita el acceso a la cámara en la configuración de su navegador.', cam_error_acc: 'No se pudo acceder a la cámara. Por favor asegúrese de que haya una cámara conectada.'
     }
   },
   fr: {
     nav: { scanner: 'Scanner', templates: 'Modèles', blog: 'Blog', docs: 'Documentation', about: 'À propos', contact: 'Contact', getStarted: 'Commencer' },
+    blog: { title: 'Ressources et Tutoriels', subtitle: 'Maîtrisez l\'art des codes QR pour votre entreprise avec nos guides.', read_article: 'Lire l\'Article', back: '← Retour aux Ressources' },
     hero: { title: 'Codes QR professionnels en quelques secondes', subtitle: 'Créez de superbes codes QR personnalisables avec prise en charge des logos. Vos 3 premiers codes sont 100 % gratuits, sans inscription.', createBtn: 'Créer un Code QR', scanBtn: 'Scanner un Code QR', preview: 'Aperçu du Code QR' },
     features: { title: 'Fonctionnalités Puissantes', subtitle: 'Tout ce dont vous avez besoin pour créer des codes QR professionnels avec une personnalisation avancée', f1Title: '35+ Types de QR', f1Desc: 'Générez des codes QR pour les URL, e-mails, WiFi, vCard, paiements, réseaux sociaux et plus', f2Title: 'Personnalisation Avancée', f2Desc: 'Contrôle total sur les couleurs, styles, placement du logo et designs de cadre', f3Title: 'Formats Multiples', f3Desc: 'Exportez en PNG, SVG, JPEG, PDF ou haute résolution pour impression', f4Title: 'Aperçu en Temps Réel', f4Desc: 'Voyez les changements instantanément pendant la personnalisation de votre code QR', f5Title: 'Optimisé pour Mobile', f5Desc: 'Fonctionne parfaitement sur tous les appareils avec un design responsive', f6Title: 'Sécurisé et Privé', f6Desc: 'Tout le traitement se fait dans votre navigateur, aucune donnée stockée' },
     types: { title: '35+ Types de Code QR', subtitle: 'Prise en charge de tous les types de codes QR dont vous avez besoin' },
@@ -54,10 +75,20 @@ export const translations: Record<string, Record<string, Record<string, string>>
       dropzone: 'Glissez-déposez votre logo ici, ou cliquez pour sélectionner', dropzone_hint: 'Prend en charge PNG, JPG, WEBP (Max 2 Mo)', or_url: 'Ou entrez l\'URL de l\'image', logo_size: 'Taille du logo', remove_logo: 'Supprimer le logo', generating: 'Génération...',
       waiting: 'En attente d\'entrée pour générer le code QR', fill_in: 'Remplissez le contenu pour générer votre code QR', limit_reached: 'Limite Atteinte', limit_desc: 'Payez ₦1,000 pour débloquer ce code QR et des générations illimitées.',
       unlock_btn: 'Débloquer Maintenant', unlock_unlimited: 'Débloquer Illimité — Payer ₦1,000', copy: 'Copier', share: 'Partager', reset: 'Tout Réinitialiser', free_remaining_1: 'sur 3 générations gratuites restantes — payez ₦1,000 pour un accès illimité', free_remaining_2: 'Limite gratuite atteinte — payez ₦1,000 pour débloquer des codes QR illimités'
+    },
+    scanner: {
+      title: 'Scanner et Décodeur de Code QR', subtitle: 'Scannez avec votre caméra ou téléchargez une image — les résultats apparaissent instantanément',
+      live_cam: 'Scanner de Caméra en Direct', cam_preview: 'L\'aperçu de la caméra apparaîtra ici', scanning: 'Numérisation…', stop_cam: 'Arrêter la Caméra', start_cam: 'Démarrer la Caméra',
+      upload_img: 'Télécharger une Image', click_upload: 'Cliquez pour télécharger une image', formats: 'Prise en charge PNG, JPG, WEBP', choose_img: 'Choisir une Image',
+      decoded: 'Contenu Décodé', open_link: 'Ouvrir le lien ↗', copy_res: 'Copier le Résultat', clear: 'Effacer',
+      private_title: 'Numérisation 100% Privée', private_desc: 'Toute la numérisation s\'effectue directement dans votre navigateur. Votre flux de caméra et vos images téléchargées ne sont jamais envoyés à aucun serveur. Pour de meilleurs résultats lors du téléchargement, assurez-vous que le code QR est clair, bien éclairé et occupe une bonne partie de l\'image.',
+      toast_detected: 'Code QR détecté !', toast_decoded: 'Code QR décodé avec succès !', toast_not_found: 'Aucun code QR trouvé. Veuillez essayer une image plus claire.', toast_analyze_fail: 'Échec de l\'analyse de l\'image', toast_process_fail: 'Échec du traitement de l\'image', toast_copied: 'Copié dans le presse-papiers', toast_copy_fail: 'Échec de la copie',
+      cam_error_perm: 'Autorisation de caméra refusée. Veuillez autoriser l\'accès à la caméra dans les paramètres de votre navigateur.', cam_error_acc: 'Impossible d\'accéder à la caméra. Veuillez vous assurer qu\'une caméra est connectée.'
     }
   },
   yo: {
     nav: { scanner: 'Ẹrọ Ayẹwo', templates: 'Àwọn Àwòṣe', blog: 'Búlọ̀ọ̀gù', docs: 'Àwọn Ìwé', about: 'Nípa Wa', contact: 'Kàn sí wa', getStarted: 'Bẹ̀rẹ̀' },
+    blog: { title: 'Àwọn Ohun-èlò & Ìkọ́ni', subtitle: 'Kọ́ bí a ṣe ń lo koodu QR fún iṣẹ́ rẹ pẹ̀lú àwọn ìtọ́sọ́nà wa.', read_article: 'Ka Àkọlé', back: '← Padà sí Àwọn Ohun-èlò' },
     hero: { title: 'Koodu QR Alámọ̀dájú ní Ìṣẹ́jú Aáyá', subtitle: 'Ṣẹ̀dá àwọn koodu QR tó lẹ́wà, pẹ̀lú àtìlẹ́yìn àmì-iṣẹ́. Koodu 3 rẹ àkọ́kọ́ jẹ́ ọ̀fẹ́ 100% — kò sí ìforúkọsílẹ̀.', createBtn: 'Ṣẹ̀dá Koodu QR', scanBtn: 'Ṣàyẹ̀wò Koodu QR', preview: 'Àwòté Koodu QR' },
     features: { title: 'Àwọn Ẹ̀yà Pàtàkì', subtitle: 'Ohun gbogbo tí o nílò láti ṣẹ̀dá àwọn koodu QR alámọ̀dájú', f1Title: '35+ Oríṣi QR', f1Desc: 'Ṣẹ̀dá àwọn koodu QR fún URL, imeeli, WiFi, vCard, sísanwó, àti bẹ́ẹ̀ bẹ́ẹ̀ lọ', f2Title: 'Ìyípadà Àti Àtúnṣe', f2Desc: 'Ìṣàkóso ẹ̀kúnrẹ́rẹ́ lórí àwọ̀, ara, ìfilọ́lẹ̀ àmì, àti àpẹẹrẹ', f3Title: 'Oríṣiríṣi Fọ́mátì', f3Desc: 'Gbé e jáde gẹ́gẹ́ bí PNG, SVG, JPEG, PDF, tàbí gíga-fún-títẹ̀', f4Title: 'Àwòté Ìsinsìnyí', f4Desc: 'Rí àwọn àtúnṣe lẹ́sẹ̀kẹsẹ̀ bí o ṣe ń ṣe àtúnṣe koodu rẹ', f5Title: 'Dára fún Foonu', f5Desc: 'Ó ṣiṣẹ́ dáadáa lórí gbogbo ẹ̀rọ', f6Title: 'Ààbò àti Àṣírí', f6Desc: 'Gbogbo ìṣiṣẹ́ wáyé nínú burausa rẹ - kò sí dátà tí a tọ́jú' },
     types: { title: '35+ Oríṣi Koodu QR', subtitle: 'Àtìlẹ́yìn fún gbogbo oríṣi koodu QR tí o le nílò' },
@@ -72,10 +103,20 @@ export const translations: Record<string, Record<string, Record<string, string>>
       dropzone: 'Fa àmì rẹ sínú ibí, tàbí tẹ̀ láti mu', dropzone_hint: 'Ó ṣe atilẹyin PNG, JPG, WEBP (Max 2MB)', or_url: 'Tàbí kọ URL àwòrán', logo_size: 'Ìwọ̀n Àmì', remove_logo: 'Yọ Àmì', generating: 'Ó ń ṣẹ̀dá...',
       waiting: 'N dúró de àkóónú láti ṣẹ̀dá koodu QR', fill_in: 'Kọ àkóónú láti ṣẹ̀dá koodu QR rẹ', limit_reached: 'Ó ti dé òpin', limit_desc: 'San ₦1,000 láti ṣí koodu QR yí àti lílò tí kò lópin.',
       unlock_btn: 'Ṣí I Nísinsìnyí', unlock_unlimited: 'Ṣí Lílò Tí Kò Lópin — San ₦1,000', copy: 'Dàkọ', share: 'Pín', reset: 'Pa Gbogbo Rẹ Rẹ́', free_remaining_1: 'nínú 3 iṣẹ́ ọ̀fẹ́ tó kù — san ₦1,000 fún lílò tí kò lópin', free_remaining_2: 'Ó ti dé òpin ọ̀fẹ́ — san ₦1,000 láti ṣí lílò tí kò lópin'
+    },
+    scanner: {
+      title: 'Ẹrọ Ayẹwo Koodu QR', subtitle: 'Lo kámẹ́rà rẹ tàbí gbé àwòrán wọlé — yóò fún ọ ní èsì lẹ́sẹ̀kẹsẹ̀',
+      live_cam: 'Ẹrọ Ayẹwo Kámẹ́rà Lẹ́sẹ̀kẹsẹ̀', cam_preview: 'Àwòrán kámẹ́rà yóò hàn níhìn-ín', scanning: 'Ó ń ṣàyẹ̀wò…', stop_cam: 'Dúró Kámẹ́rà', start_cam: 'Bẹ̀rẹ̀ Kámẹ́rà',
+      upload_img: 'Gbé Àwòrán Wọlé', click_upload: 'Tẹ̀ láti gbé àwòrán wọlé', formats: 'PNG, JPG, WEBP', choose_img: 'Yan Àwòrán',
+      decoded: 'Àkóónú Tí A Rí', open_link: 'Ṣí ìjápọ̀ ↗', copy_res: 'Dàkọ Èsì', clear: 'Pa A Rẹ́',
+      private_title: 'Àṣírí 100%', private_desc: 'Gbogbo ìṣàyẹ̀wò wáyé nínú burausa rẹ. A kò fi kámẹ́rà tàbí àwòrán rẹ ránṣẹ́ sí sérfà kankan. Fún èsì tó péye, rí i dájú pé koodu QR náà mọ́, o ní ìmọ́lẹ̀, ó sì tóbi.',
+      toast_detected: 'A ti rí koodu QR!', toast_decoded: 'A ti túmọ̀ koodu QR!', toast_not_found: 'A kò rí koodu QR kankan. Jọ̀wọ́ lo àwòrán tó mọ́.', toast_analyze_fail: 'A kò le ṣe ìtúpalẹ̀ àwòrán', toast_process_fail: 'A kò le ṣe iṣẹ́ lórí àwòrán', toast_copied: 'A ti dàkọ rẹ̀', toast_copy_fail: 'A kò le dàkọ',
+      cam_error_perm: 'A kò fún ọ láàyè kámẹ́rà. Jọ̀wọ́ fún un láàyè nínú burausa rẹ.', cam_error_acc: 'A kò le wọ kámẹ́rà. Jọ̀wọ́ rí i dájú pé kámẹ́rà wà.'
     }
   },
   ha: {
     nav: { scanner: 'Abin Dubawa', templates: 'Falo', blog: 'Shafi', docs: 'Takardu', about: 'Game da', contact: 'Tuntuɓa', getStarted: 'Fara' },
+    blog: { title: 'Kayan Aiki & Darussan', subtitle: 'Koyi yadda ake amfani da lambobin QR don kasuwancinku.', read_article: 'Karanta', back: '← Koma Kayan Aiki' },
     hero: { title: 'Lambobin QR na Kwararru a Daƙiƙa', subtitle: 'Ƙirƙiri kyawawan lambobin QR tare da tambari. 3 na farko kyauta ne 100% — ba rajista.', createBtn: 'Ƙirƙiri QR', scanBtn: 'Duba QR', preview: 'Dubawa' },
     features: { title: 'Ayyuka Masu Ƙarfi', subtitle: 'Duk abin da kuke buƙata don ƙirƙirar lambobin QR na ƙwararru', f1Title: 'Ire-iren QR 35+', f1Desc: 'Ƙirƙiri lambobin QR na URL, imel, WiFi, vCard, da sauransu', f2Title: 'Canje-canje na Musamman', f2Desc: 'Cikakken iko akan launuka da tsari', f3Title: 'Siffofi Daban-daban', f3Desc: 'Fitar a matsayin PNG, SVG, JPEG, PDF', f4Title: 'Dubawa Nan Take', f4Desc: 'Gani canje-canje nan take', f5Title: 'Don Waya', f5Desc: 'Yana aiki akan duk na\'urori', f6Title: 'Tsaro', f6Desc: 'Duk a cikin manhajarka - ba a ajiye bayanai' },
     types: { title: 'Ire-iren QR 35+', subtitle: 'Taimako ga duk irin QR' },
@@ -90,10 +131,20 @@ export const translations: Record<string, Record<string, Record<string, string>>
       dropzone: 'Jawo tambari anan, ko danna don zaɓa', dropzone_hint: 'Yana goyan bayan PNG, JPG, WEBP (Kada ya wuce 2MB)', or_url: 'Ko shigar da URL', logo_size: 'Girman tambari', remove_logo: 'Cire Tambari', generating: 'Ana ƙirƙira...',
       waiting: 'Ana jiran bayani don ƙirƙira', fill_in: 'Sanya bayani don ƙirƙira', limit_reached: 'An Kawo Ƙarshe', limit_desc: 'Biya ₦1,000 don buɗewa har abada.',
       unlock_btn: 'Buɗe Yanzu', unlock_unlimited: 'Buɗe Har Abada — Biya ₦1,000', copy: 'Kwafa', share: 'Raba', reset: 'Sake Komai', free_remaining_1: 'cikin 3 kyauta sun rage — biya ₦1,000 don amfani na dindindin', free_remaining_2: 'Kun gama na kyauta — biya ₦1,000 don buɗewa har abada'
+    },
+    scanner: {
+      title: 'Injin Duba Lambar QR', subtitle: 'Duba da kyamararka ko ka loda hoto — sakamako yana fitowa nan take',
+      live_cam: 'Injin Duba na Kyamara', cam_preview: 'Hoton kyamara zai fito anan', scanning: 'Ana dubawa…', stop_cam: 'Tsayar da Kyamara', start_cam: 'Fara Kyamara',
+      upload_img: 'Loda Hoto', click_upload: 'Danna don loda hoto', formats: 'Yana goyan bayan PNG, JPG, WEBP', choose_img: 'Zaɓi Hoto',
+      decoded: 'Sakamakon Dubawa', open_link: 'Bude hanyar ↗', copy_res: 'Kwafi Sakamako', clear: 'Share',
+      private_title: 'Sirri 100%', private_desc: 'Duk dubawa yana faruwa a cikin manhajarka. Ba a tura kyamararka ko hotunanka zuwa wani guri. Don sakamako mai kyau, tabbatar QR ɗin ya fito radau kuma yana da haske.',
+      toast_detected: 'An ga lambar QR!', toast_decoded: 'An karanta lambar QR dakyau!', toast_not_found: 'Ba a ga lambar QR ba. Da fatan za a gwada hoto mai haske.', toast_analyze_fail: 'An gaza nazarin hoto', toast_process_fail: 'An gaza sarrafa hoto', toast_copied: 'An kwafa', toast_copy_fail: 'An gaza kwafa',
+      cam_error_perm: 'Ba a bada damar kyamara ba. Da fatan za a bada dama a saitunan manhajarka.', cam_error_acc: 'An gaza samun kyamara. Tabbatar kyamara tana aiki.'
     }
   },
   ig: {
     nav: { scanner: 'Ihe nyocha', templates: 'Ụdị', blog: 'Blọgụ', docs: 'Akwụkwọ', about: 'Maka', contact: 'Kpọtụrụ', getStarted: 'Bido' },
+    blog: { title: 'Ihe Enyemaka & Ọzụzụ', subtitle: 'Mụta otu esi eji koodu QR maka azụmahịa gị.', read_article: 'Gụọ Akụkọ', back: '← Laghachi n\'Ihe Enyemaka' },
     hero: { title: 'Koodu QR ndị Ọkachamara na Nkejinta', subtitle: 'Mepụta koodu QR mara mma. 3 nke mbụ bụ n\'efu 100% — enweghị ndebanye aha.', createBtn: 'Mepụta QR', scanBtn: 'Nyochaa QR', preview: 'Hụ QR' },
     features: { title: 'Ihe Ndị Dị Ike', subtitle: 'Ihe niile ị chọrọ iji mepụta koodu QR ndị ọkachamara', f1Title: 'Ụdị QR 35+', f1Desc: 'Mepụta maka URL, email, WiFi, vCard na ndị ọzọ', f2Title: 'Nhazi dị elu', f2Desc: 'Njikwa zuru oke na agba na ụdị', f3Title: 'Ụdị Dị Iche Iche', f3Desc: 'Bupụta dị ka PNG, SVG, JPEG, PDF', f4Title: 'Ịhụ ozugbo', f4Desc: 'Hụ mgbanwe ozugbo', f5Title: 'Maka Ekwentị', f5Desc: 'Na-arụ ọrụ na ngwaọrụ niile', f6Title: 'Nchebe', f6Desc: 'Ihe niile dị na nchọgharị gị - enweghị data echekwara' },
     types: { title: 'Ụdị QR 35+', subtitle: 'Nkwado maka ụdị QR ọ bụla' },
@@ -108,6 +159,15 @@ export const translations: Record<string, Record<string, Record<string, string>>
       dropzone: 'Dọrọ logo ebe a, ma ọ bụ pịa ịhọrọ', dropzone_hint: 'Na-akwado PNG, JPG, WEBP (Ruo 2MB)', or_url: 'Ma ọ bụ tinye URL', logo_size: 'Ogo logo', remove_logo: 'Wepụ Logo', generating: 'Na-emepụta...',
       waiting: 'Na-eche maka ozi', fill_in: 'Dejupụta ozi iji mepụta koodu QR gị', limit_reached: 'Eruola Oke', limit_desc: 'Kwụọ ₦1,000 iji nweta ike oge niile.',
       unlock_btn: 'Kpọghe Ugbu a', unlock_unlimited: 'Kpọghe Oge Niile — Kwụọ ₦1,000', copy: 'Deṅomie', share: 'Kekọrịta', reset: 'Tọgharịa Ihe Niile', free_remaining_1: 'nke 3 n\'efu fọdụrụ — kwụọ ₦1,000 maka iji mgbe niile', free_remaining_2: 'Ọ gwụla n\'efu — kwụọ ₦1,000 maka iji mgbe niile'
+    },
+    scanner: {
+      title: 'Ihe Nyocha Koodu QR', subtitle: 'Jiri igwefoto gị nyochaa ma ọ bụ bulite foto — nsonaazụ na-apụta ozugbo',
+      live_cam: 'Ihe Nyocha Igwefoto Ozugbo', cam_preview: 'Igwefoto ga-apụta ebe a', scanning: 'Na-enyocha…', stop_cam: 'Kwụsị Igwefoto', start_cam: 'Malite Igwefoto',
+      upload_img: 'Bulite Foto', click_upload: 'Pịa iji bulite foto', formats: 'Na-akwado PNG, JPG, WEBP', choose_img: 'Họrọ Foto',
+      decoded: 'Ihe Achọtara', open_link: 'Mepee njikọ ↗', copy_res: 'Deṅomie Nsonaazụ', clear: 'Kpochapụ',
+      private_title: '100% Nyocha Nzuzo', private_desc: 'Nyocha niile na-eme n\'ime nchọgharị gị. A naghị ezipụ igwefoto ma ọ bụ foto gị na sava ọ bụla. Maka nsonaazụ kacha mma, hụ na koodu QR doro anya.',
+      toast_detected: 'Ahụla koodu QR!', toast_decoded: 'A gụọla koodu QR nke ọma!', toast_not_found: 'Ahụghị koodu QR ọ bụla. Biko gbalịa foto doro anya.', toast_analyze_fail: 'Enweghị ike inyocha foto', toast_process_fail: 'Enweghị ike ịrụ ọrụ na foto', toast_copied: 'E depụtaghachiri ya', toast_copy_fail: 'Enweghị ike iṅomi',
+      cam_error_perm: 'Ajụla ikike igwefoto. Biko nye ikike igwefoto na ntọala nchọgharị gị.', cam_error_acc: 'Enweghị ike ịnweta igwefoto. Biko hụ na ejikọtara igwefoto.'
     }
   }
 };

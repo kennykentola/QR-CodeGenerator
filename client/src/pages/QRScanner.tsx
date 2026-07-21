@@ -6,6 +6,7 @@ import { Camera, Upload, Copy, X, QrCode, CameraOff, ZapOff } from 'lucide-react
 import { toast } from 'sonner';
 import SEO from '@/components/SEO';
 import jsQR from 'jsqr';
+import { useI18n } from '@/i18nContext';
 
 type ScanMode = 'idle' | 'camera' | 'upload';
 
@@ -15,6 +16,8 @@ export default function QRScanner() {
   const [scanMode, setScanMode] = useState<ScanMode>('idle');
   const [cameraError, setCameraError] = useState<string>('');
   const [isScanning, setIsScanning] = useState(false);
+  
+  const { t } = useI18n();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -42,8 +45,8 @@ export default function QRScanner() {
       scanFrame();
     } catch (err: any) {
       const msg = err?.name === 'NotAllowedError'
-        ? 'Camera permission denied. Please allow camera access in your browser settings.'
-        : 'Could not access camera. Please ensure a camera is connected.';
+        ? t('scanner', 'cam_error_perm')
+        : t('scanner', 'cam_error_acc');
       setCameraError(msg);
       setScanMode('idle');
       toast.error(msg);
@@ -68,7 +71,7 @@ export default function QRScanner() {
     });
     if (code) {
       setScannedData(code.data);
-      toast.success('QR code detected!');
+      toast.success(t('scanner', 'toast_detected'));
       stopCamera();
       return;
     }
@@ -118,13 +121,13 @@ export default function QRScanner() {
             });
             if (code) {
               setScannedData(code.data);
-              toast.success('QR code successfully decoded!');
+              toast.success(t('scanner', 'toast_decoded'));
             } else {
-              toast.error('No QR code found. Please try a clearer image.');
+              toast.error(t('scanner', 'toast_not_found'));
             }
           } catch (err) {
             console.error('Error decoding image:', err);
-            toast.error('Failed to analyze image');
+            toast.error(t('scanner', 'toast_analyze_fail'));
           }
         };
         img.src = imageUrl;
@@ -132,16 +135,16 @@ export default function QRScanner() {
       reader.readAsDataURL(file);
     } catch (error) {
       console.error('Error processing image:', error);
-      toast.error('Failed to process image');
+      toast.error(t('scanner', 'toast_process_fail'));
     }
   };
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(scannedData);
-      toast.success('Copied to clipboard');
+      toast.success(t('scanner', 'toast_copied'));
     } catch {
-      toast.error('Failed to copy');
+      toast.error(t('scanner', 'toast_copy_fail'));
     }
   };
 
@@ -166,8 +169,8 @@ export default function QRScanner() {
 
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">QR Code Scanner & Decoder</h1>
-          <p className="text-muted-foreground">Scan with your camera or upload an image — results appear instantly</p>
+          <h1 className="text-4xl font-bold text-foreground mb-2">{t('scanner', 'title')}</h1>
+          <p className="text-muted-foreground">{t('scanner', 'subtitle')}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -175,7 +178,7 @@ export default function QRScanner() {
           <Card className="p-6">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Camera className="w-5 h-5 text-blue-600" />
-              Live Camera Scanner
+              {t('scanner', 'live_cam')}
             </h2>
 
             <div className="space-y-4">
@@ -197,7 +200,7 @@ export default function QRScanner() {
                     ) : (
                       <>
                         <Camera className="w-10 h-10 opacity-40" />
-                        <p className="text-sm opacity-60">Camera preview will appear here</p>
+                        <p className="text-sm opacity-60">{t('scanner', 'cam_preview')}</p>
                       </>
                     )}
                   </div>
@@ -207,7 +210,7 @@ export default function QRScanner() {
                   <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute inset-4 border-2 border-blue-400 rounded-lg animate-pulse opacity-70" />
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
-                      Scanning…
+                      {t('scanner', 'scanning')}
                     </div>
                   </div>
                 )}
@@ -216,7 +219,7 @@ export default function QRScanner() {
               {isScanning ? (
                 <Button onClick={stopCamera} variant="destructive" className="w-full">
                   <ZapOff className="w-4 h-4 mr-2" />
-                  Stop Camera
+                  {t('scanner', 'stop_cam')}
                 </Button>
               ) : (
                 <Button
@@ -225,7 +228,7 @@ export default function QRScanner() {
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   <Camera className="w-4 h-4 mr-2" />
-                  Start Camera
+                  {t('scanner', 'start_cam')}
                 </Button>
               )}
             </div>
@@ -235,7 +238,7 @@ export default function QRScanner() {
           <Card className="p-6">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Upload className="w-5 h-5 text-blue-600" />
-              Upload Image
+              {t('scanner', 'upload_img')}
             </h2>
 
             <div className="space-y-4">
@@ -260,8 +263,8 @@ export default function QRScanner() {
                   className="bg-slate-100 dark:bg-slate-800 rounded-lg p-8 flex flex-col items-center justify-center aspect-video cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-blue-400 transition-colors"
                 >
                   <Upload className="w-12 h-12 text-muted-foreground mb-3" />
-                  <p className="text-muted-foreground text-sm font-medium">Click to upload an image</p>
-                  <p className="text-xs text-muted-foreground mt-1">PNG, JPG, WEBP supported</p>
+                  <p className="text-muted-foreground text-sm font-medium">{t('scanner', 'click_upload')}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t('scanner', 'formats')}</p>
                 </div>
               )}
 
@@ -280,7 +283,7 @@ export default function QRScanner() {
                 className="w-full"
               >
                 <Upload className="w-4 h-4 mr-2" />
-                Choose Image
+                {t('scanner', 'choose_img')}
               </Button>
             </div>
           </Card>
@@ -291,7 +294,7 @@ export default function QRScanner() {
           <Card className="mt-6 p-6 border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20">
             <div className="flex items-center gap-2 text-green-800 dark:text-green-400 font-semibold mb-3">
               <QrCode className="w-5 h-5" />
-              Decoded Content
+              {t('scanner', 'decoded')}
             </div>
             <div className="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 font-mono text-sm break-all max-h-48 overflow-y-auto mb-4">
               {scannedData}
@@ -304,17 +307,17 @@ export default function QRScanner() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-blue-600 hover:underline mb-3"
               >
-                Open link ↗
+                {t('scanner', 'open_link')}
               </a>
             )}
             <div className="flex gap-3">
               <Button onClick={handleCopy} className="flex-1 bg-green-600 hover:bg-green-700 text-white">
                 <Copy className="w-4 h-4 mr-2" />
-                Copy Result
+                {t('scanner', 'copy_res')}
               </Button>
               <Button onClick={handleClear} variant="outline">
                 <X className="w-4 h-4 mr-2" />
-                Clear
+                {t('scanner', 'clear')}
               </Button>
             </div>
           </Card>
@@ -322,10 +325,9 @@ export default function QRScanner() {
 
         {/* Info Section */}
         <Card className="p-6 mt-6 bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
-          <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">100% Private Scanning</h3>
+          <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">{t('scanner', 'private_title')}</h3>
           <p className="text-blue-800 dark:text-blue-200 text-sm">
-            All scanning happens directly in your browser. Your camera feed and uploaded images are never sent to any server.
-            For best results when uploading, ensure the QR code is clear, well-lit, and fills a good portion of the image.
+            {t('scanner', 'private_desc')}
           </p>
         </Card>
       </div>
