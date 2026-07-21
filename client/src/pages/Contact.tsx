@@ -4,10 +4,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useI18n } from '@/i18nContext';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 export default function Contact() {
+  const { t } = useI18n();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,7 +19,7 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Thank you for your message! We will get back to you soon.');
+    toast.success(t('contact', 'success'));
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
@@ -26,8 +28,8 @@ export default function Contact() {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-          <p className="text-blue-100 text-lg">We would love to hear from you</p>
+          <h1 className="text-4xl font-bold mb-4">{t('contact', 'title')}</h1>
+          <p className="text-blue-100 text-lg">{t('contact', 'subtitle')}</p>
         </div>
       </div>
 
@@ -37,9 +39,9 @@ export default function Contact() {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
+              <h2 className="text-2xl font-bold mb-6">{t('contact', 'get_in_touch')}</h2>
               <p className="text-muted-foreground mb-8">
-                Have a question or suggestion? We are here to help. Send us a message and we will respond as soon as possible.
+                {t('contact', 'desc')}
               </p>
             </div>
 
@@ -47,7 +49,7 @@ export default function Contact() {
               <div className="flex gap-4">
                 <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold mb-1">Email</h3>
+                  <h3 className="font-semibold mb-1">{t('contact', 'email')}</h3>
                   <p className="text-muted-foreground">support@qrgenerator.app</p>
                 </div>
               </div>
@@ -55,7 +57,7 @@ export default function Contact() {
               <div className="flex gap-4">
                 <Phone className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold mb-1">Phone</h3>
+                  <h3 className="font-semibold mb-1">{t('contact', 'phone')}</h3>
                   <p className="text-muted-foreground">+1 (555) 123-4567</p>
                 </div>
               </div>
@@ -63,7 +65,7 @@ export default function Contact() {
               <div className="flex gap-4">
                 <MapPin className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold mb-1">Address</h3>
+                  <h3 className="font-semibold mb-1">{t('contact', 'address')}</h3>
                   <p className="text-muted-foreground">123 Tech Street, San Francisco, CA 94105</p>
                 </div>
               </div>
@@ -74,10 +76,10 @@ export default function Contact() {
           <Card className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">{t('contact', 'form_name')}</Label>
                 <Input
                   id="name"
-                  placeholder="Your name"
+                  placeholder={t('contact', 'form_name_ph')}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
@@ -85,11 +87,11 @@ export default function Contact() {
               </div>
 
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('contact', 'form_email')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder={t('contact', 'form_email_ph')}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
@@ -97,10 +99,10 @@ export default function Contact() {
               </div>
 
               <div>
-                <Label htmlFor="subject">Subject</Label>
+                <Label htmlFor="subject">{t('contact', 'form_subject')}</Label>
                 <Input
                   id="subject"
-                  placeholder="How can we help?"
+                  placeholder={t('contact', 'form_subject_ph')}
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   required
@@ -108,10 +110,10 @@ export default function Contact() {
               </div>
 
               <div>
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">{t('contact', 'form_message')}</Label>
                 <Textarea
                   id="message"
-                  placeholder="Your message..."
+                  placeholder={t('contact', 'form_message_ph')}
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -120,7 +122,7 @@ export default function Contact() {
               </div>
 
               <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                Send Message
+                {t('contact', 'send')}
               </Button>
             </form>
           </Card>
