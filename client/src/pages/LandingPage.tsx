@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -8,13 +8,49 @@ import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
 import { useI18n, supportedLanguages } from '@/i18nContext';
 
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+};
+
 export default function LandingPage() {
   const [, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const { t, lang, setLang } = useI18n();
 
   const changeLanguage = (lng: string) => {
     setLang(lng);
+  };
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+
+    const handleInstalled = () => {
+      setInstallPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleInstalled);
+    };
+  }, []);
+
+  const installApp = async () => {
+    if (!installPrompt) return;
+
+    await installPrompt.prompt();
+    const choice = await installPrompt.userChoice;
+
+    if (choice.outcome !== 'dismissed') {
+      setInstallPrompt(null);
+    }
   };
 
   const fadeInUp = {
@@ -95,6 +131,12 @@ export default function LandingPage() {
             <Button onClick={() => setLocation('/generator')} className="hidden md:flex bg-blue-600 hover:bg-blue-700">
               {t('nav', 'getStarted')}
             </Button>
+            {installPrompt && (
+              <Button onClick={installApp} variant="outline" className="hidden md:flex">
+                <Smartphone className="w-4 h-4 mr-2" />
+                Install
+              </Button>
+            )}
             <Button 
               variant="ghost" 
               size="icon" 
@@ -133,6 +175,12 @@ export default function LandingPage() {
             <Button onClick={() => setLocation('/generator')} className="w-full bg-blue-600 hover:bg-blue-700">
               {t('nav', 'getStarted')}
             </Button>
+            {installPrompt && (
+              <Button onClick={installApp} variant="outline" className="w-full">
+                <Smartphone className="w-4 h-4 mr-2" />
+                Install App
+              </Button>
+            )}
           </div>
         )}
       </nav>
@@ -163,6 +211,17 @@ export default function LandingPage() {
               >
                 {t('hero', 'scanBtn')}
               </Button>
+              {installPrompt && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 h-14 rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-900"
+                  onClick={installApp}
+                >
+                  <Smartphone className="w-5 h-5 mr-2" />
+                  Install App
+                </Button>
+              )}
             </div>
           </motion.div>
 
