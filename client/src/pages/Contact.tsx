@@ -224,10 +224,6 @@ export default function Contact() {
                   )}
                 </Button>
 
-                <p className="text-xs text-center text-muted-foreground">
-                  Your message goes directly to{' '}
-                  <span className="font-medium">peterkehindeademola9@gmail.com</span>
-                </p>
               </form>
             )}
           </Card>
