@@ -17,7 +17,7 @@ import SEO from '@/components/SEO';
 // For now we use a placeholder that you MUST replace with your real form ID.
 // If you haven't signed up yet, use this form template:
 //   https://formspree.io/f/YOUR_FORM_ID
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpwzdkae';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mwvgzplz';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Contact() {
