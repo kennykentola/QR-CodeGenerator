@@ -4,12 +4,19 @@
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
   "routes": [
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/robots.txt",  "dest": "/robots.txt"  },
-    { "src": "/og-image.png", "dest": "/og-image.png" },
-    { "src": "/favicon.svg", "dest": "/favicon.svg" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/(.*)",        "dest": "/index.html"  }
+    { "src": "/sitemap.xml",            "dest": "/sitemap.xml" },
+    { "src": "/robots.txt",             "dest": "/robots.txt" },
+    { "src": "/og-image.png",           "dest": "/og-image.png" },
+    { "src": "/favicon.svg",            "dest": "/favicon.svg" },
+    { "src": "/app-sw.js",             "dest": "/app-sw.js" },
+    { "src": "/manifest.webmanifest",  "dest": "/manifest.webmanifest" },
+    { "src": "/apple-touch-icon.png",  "dest": "/apple-touch-icon.png" },
+    { "src": "/icon-192.png",          "dest": "/icon-192.png" },
+    { "src": "/icon-512.png",          "dest": "/icon-512.png" },
+    { "src": "/icon-maskable-192.png", "dest": "/icon-maskable-192.png" },
+    { "src": "/icon-maskable-512.png", "dest": "/icon-maskable-512.png" },
+    { "src": "/assets/(.*)",            "dest": "/assets/$1" },
+    { "src": "/(.*)",                   "dest": "/index.html" }
   ],
   "headers": [
     {
@@ -22,6 +29,21 @@
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
         { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https: http:; connect-src 'self' https:;" },
         { "key": "Permissions-Policy", "value": "camera=self, microphone=()" }
+      ]
+    },
+    {
+      "source": "/app-sw.js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]
     },
     {
