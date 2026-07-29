@@ -68,6 +68,10 @@ function Router() {
 //   to keep consistent foreground/background color across components
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
+import { PwaProvider } from './contexts/PwaContext';
+import { PwaInstallBanner } from './components/PwaInstallBanner';
+import Navbar from './components/Navbar';
+
 function App() {
   return (
     <ErrorBoundary>
@@ -77,10 +81,14 @@ function App() {
       >
         <HelmetProvider>
           <I18nProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Router />
-            </TooltipProvider>
+            <PwaProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Navbar />
+                <Router />
+                <PwaInstallBanner />
+              </TooltipProvider>
+            </PwaProvider>
           </I18nProvider>
         </HelmetProvider>
       </ThemeProvider>

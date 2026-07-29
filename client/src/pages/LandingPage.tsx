@@ -1,57 +1,17 @@
-import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLocation } from 'wouter';
-import { QrCode, Zap, Shield, BarChart3, Download, Share2, Smartphone, Lock, Sparkles, Menu, X, Globe } from 'lucide-react';
+import { QrCode, Zap, Shield, BarChart3, Download, Smartphone, Lock, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
-import { useI18n, supportedLanguages } from '@/i18nContext';
-
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
-};
+import { useI18n } from '@/i18nContext';
+import { usePwa } from '@/contexts/PwaContext';
 
 export default function LandingPage() {
   const [, setLocation] = useLocation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const { t, lang, setLang } = useI18n();
-
-  const changeLanguage = (lng: string) => {
-    setLang(lng);
-  };
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (event: Event) => {
-      event.preventDefault();
-      setInstallPrompt(event as BeforeInstallPromptEvent);
-    };
-
-    const handleInstalled = () => {
-      setInstallPrompt(null);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleInstalled);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleInstalled);
-    };
-  }, []);
-
-  const installApp = async () => {
-    if (!installPrompt) return;
-
-    await installPrompt.prompt();
-    const choice = await installPrompt.userChoice;
-
-    if (choice.outcome !== 'dismissed') {
-      setInstallPrompt(null);
-    }
-  };
+  const { isInstallable, promptInstall } = usePwa();
+  const { t } = useI18n();
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -98,92 +58,7 @@ export default function LandingPage() {
           }
         }}
       />
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-              <QrCode className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-lg">QR Generator</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="/scanner" className="text-sm text-muted-foreground hover:text-foreground transition font-medium">{t('nav', 'scanner')}</a>
-            <a href="/templates" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'templates')}</a>
-            <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'blog')}</a>
-            <a href="/documentation" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'docs')}</a>
-            <a href="/about" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'about')}</a>
-            <a href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition">{t('nav', 'contact')}</a>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 mr-2">
-              <Globe className="w-4 h-4 text-muted-foreground" />
-              <select 
-                className="bg-transparent text-sm text-muted-foreground border-none outline-none cursor-pointer"
-                value={lang}
-                onChange={(e) => changeLanguage(e.target.value)}
-              >
-                {supportedLanguages.map((l) => (
-                  <option key={l.code} value={l.code}>{l.code.toUpperCase()}</option>
-                ))}
-              </select>
-            </div>
-            <Button onClick={() => setLocation('/generator')} className="hidden md:flex bg-blue-600 hover:bg-blue-700">
-              {t('nav', 'getStarted')}
-            </Button>
-            {installPrompt && (
-              <Button onClick={installApp} variant="outline" className="hidden md:flex">
-                <Smartphone className="w-4 h-4 mr-2" />
-                Install
-              </Button>
-            )}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="md:hidden" 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle Menu"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </Button>
-          </div>
-        </div>
-        
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 py-4 space-y-4">
-            <a href="/scanner" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'scanner')}</a>
-            <a href="/templates" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'templates')}</a>
-            <a href="/blog" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'blog')}</a>
-            <a href="/documentation" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'docs')}</a>
-            <a href="/about" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'about')}</a>
-            <a href="/contact" className="block text-sm font-medium text-foreground hover:text-blue-600 transition">{t('nav', 'contact')}</a>
-            
-            <div className="flex items-center gap-2 py-2">
-              <Globe className="w-4 h-4 text-muted-foreground" />
-              <select 
-                className="bg-transparent text-sm text-foreground border border-slate-200 dark:border-slate-800 rounded px-2 py-1"
-                value={lang}
-                onChange={(e) => changeLanguage(e.target.value)}
-              >
-                {supportedLanguages.map((l) => (
-                  <option key={l.code} value={l.code}>{l.label}</option>
-                ))}
-              </select>
-            </div>
 
-            <Button onClick={() => setLocation('/generator')} className="w-full bg-blue-600 hover:bg-blue-700">
-              {t('nav', 'getStarted')}
-            </Button>
-            {installPrompt && (
-              <Button onClick={installApp} variant="outline" className="w-full">
-                <Smartphone className="w-4 h-4 mr-2" />
-                Install App
-              </Button>
-            )}
-          </div>
-        )}
-      </nav>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
@@ -211,12 +86,12 @@ export default function LandingPage() {
               >
                 {t('hero', 'scanBtn')}
               </Button>
-              {installPrompt && (
+              {isInstallable && (
                 <Button
                   size="lg"
                   variant="outline"
                   className="text-lg px-8 h-14 rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-900"
-                  onClick={installApp}
+                  onClick={promptInstall}
                 >
                   <Smartphone className="w-5 h-5 mr-2" />
                   Install App
